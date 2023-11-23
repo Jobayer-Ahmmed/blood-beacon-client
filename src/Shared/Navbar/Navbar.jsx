@@ -1,16 +1,16 @@
 import { Link, NavLink } from "react-router-dom";
-import { useContext } from "react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useEffect } from "react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { MyContext } from "../../../contextApi/MyAuthProvider";
+import { MyContext } from "../../ContextApi/MyAuthProvider";
+import logo from "../../assets/logos/bloodbeacon.png"
 
 
 
 const Navbar = () => {
-  const { myUser, myLogOut } = useContext(MyContext);
-  const email = myUser?.email
+//   const { myUser, myLogOut } = useContext(MyContext);
+//   const email = myUser?.email
   const [theme, setTheme] = useState("light")
   
   const navlinks = <>
@@ -18,22 +18,26 @@ const Navbar = () => {
               <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <NavLink to="/addBook">Add Book</NavLink>
+              <NavLink to="/donation_request">Donation Request</NavLink>
             </li>
             <li>
-              <NavLink to="/allBooks">All Books</NavLink>
+              <NavLink to="/blog">Blog</NavLink>
             </li>
             <li>
-              <NavLink to={`/borrow`}>Borrowed Books</NavLink>
+              <NavLink to="/dashboard">Dashboard</NavLink>
+            </li>
+            <li>
+              <NavLink to="/fundings">Fundings</NavLink>
             </li>
 
-            {
-              email==="librarian@librarian.com" &&  <li>
+
+            {/* {
+              email==="admin@admin.me" &&  <li>
               <NavLink to="/librarian">Librarian</NavLink>
               </li>
               
     
-            }
+            } */}
 
   </>
 
@@ -52,11 +56,11 @@ const Navbar = () => {
   },[theme])
   
   const handleLogout = () => {
-    myLogOut()
-      .then(() =>{
-        toast.success("You are successfully logout")
-      })
-      .catch((err) => console.log(err.message));
+    // myLogOut()
+    //   .then(() =>{
+    //     toast.success("You are successfully logout")
+    //   })
+    //   .catch((err) => console.log(err.message));
   };
   return (
     <div className="navbar bg-base-100 px-xPadding2 md:px-xPadding">
@@ -88,8 +92,7 @@ const Navbar = () => {
         {/* for logo */}
         <div>
           <span className="">
-            <img src="" className=" " />
-            <p>Here will be logo</p>
+            <img src={logo} className="h-20" />
           </span>
         </div>
       </div>
@@ -99,7 +102,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        {myUser ? (
+        {/* {myUser ? (
           <div className="">
             <div className="dropdown dropdown-end">
               <label tabIndex={0}>
@@ -131,7 +134,7 @@ const Navbar = () => {
               <Link to="/register">Register</Link>
             </li>
           </ul>
-        )}
+        )} */}
 
 
 
