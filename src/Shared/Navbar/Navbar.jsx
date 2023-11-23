@@ -14,19 +14,19 @@ const Navbar = () => {
   const [theme, setTheme] = useState("light")
   
   const navlinks = <>
-            <li>
+            <li className="text-lg">
               <NavLink to="/">Home</NavLink>
             </li>
-            <li>
+            <li className="text-lg">
               <NavLink to="/donation_request">Donation Request</NavLink>
             </li>
-            <li>
+            <li className="text-lg">
               <NavLink to="/blog">Blog</NavLink>
             </li>
-            <li>
+            <li className="text-lg">
               <NavLink to="/dashboard">Dashboard</NavLink>
             </li>
-            <li>
+            <li className="text-lg">
               <NavLink to="/fundings">Fundings</NavLink>
             </li>
 
@@ -63,7 +63,7 @@ const Navbar = () => {
     //   .catch((err) => console.log(err.message));
   };
   return (
-    <div className="navbar bg-base-100 px-xPadding2 md:px-xPadding">
+    <div className="navbar bg-base-100 fixed z-50 opacity-75 px-xPadding2 md:px-xPadding">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
