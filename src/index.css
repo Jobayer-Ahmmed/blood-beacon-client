@@ -4,3 +4,9 @@
 @tailwind components;
 @tailwind utilities;
 
+.register_page{
+    background: url("./assets/images/regImg.png") no-repeat;
+    background-position: center;
+    background-size: cover;
+
+}

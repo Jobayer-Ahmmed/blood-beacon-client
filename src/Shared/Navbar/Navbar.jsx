@@ -9,8 +9,8 @@ import logo from "../../assets/logos/bloodbeacon.png"
 
 
 const Navbar = () => {
-//   const { myUser, myLogOut } = useContext(MyContext);
-//   const email = myUser?.email
+  const { myUser, myLogOut } = useContext(MyContext);
+  const email = myUser?.email
   const [theme, setTheme] = useState("light")
   
   const navlinks = <>
@@ -29,6 +29,7 @@ const Navbar = () => {
             <li className="text-lg">
               <NavLink to="/fundings">Fundings</NavLink>
             </li>
+
 
 
             {/* {
@@ -56,11 +57,11 @@ const Navbar = () => {
   },[theme])
   
   const handleLogout = () => {
-    // myLogOut()
-    //   .then(() =>{
-    //     toast.success("You are successfully logout")
-    //   })
-    //   .catch((err) => console.log(err.message));
+    myLogOut()
+      .then(() =>{
+        toast.success("You are successfully logout")
+      })
+      .catch((err) => console.log(err.message));
   };
   return (
     <div className="navbar bg-base-100 fixed z-50 opacity-75 px-xPadding2 md:px-xPadding">
@@ -102,7 +103,7 @@ const Navbar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        {/* {myUser ? (
+        {myUser ? (
           <div className="">
             <div className="dropdown dropdown-end">
               <label tabIndex={0}>
@@ -134,7 +135,7 @@ const Navbar = () => {
               <Link to="/register">Register</Link>
             </li>
           </ul>
-        )} */}
+        )}
 
 
 
