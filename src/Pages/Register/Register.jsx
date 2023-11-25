@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { MyContext } from "../../ContextApi/MyAuthProvider";
 import axios from "axios";
 import useDistricts from "../../hooks/useDistricts/useDistricts";
+import useAxios from "../../hooks/useAxios/useAxios";
 
 
 
@@ -19,7 +20,16 @@ const Register = () => {
     formState: { errors },
   } = useForm();
   const [isConfirm, setIsConfirm] = useState(false);
+  const [districtId, setdistrictId] = useState();
   const districts = useDistricts()
+  const myAxios = useAxios()
+
+
+  useEffect(()=>{
+    myAxios.get(`/upzilas/${districtId}`)
+    .then(res=>console.log(res.data))
+  },[districtId])
+  
 
 
   const handleGoogleLogin = () => {
@@ -172,14 +182,25 @@ const Register = () => {
                 <option value="O+">O-</option>
               </select>
             </div>
-            <div>
+            <div  className="mt-5">
               <div>
+                <label className=" text-xl">District</label>
                 <select
                   {...register("districts", { required: true })}
                   className="ml-5 px-4 h-10 rounded-sm text-xl"
                 >
                   {
-                    districts?.map((district)=><option key={district._id} value={district.name}>{district.name}</option>)
+                    districts?.map((district)=> {
+                    
+                      return(
+                        <>
+                        
+                          <option key={district._id} value={district.name} onClick={()=>setdistrictId(district.district_id)}>{district.name}</option>
+
+                        </>
+
+                      )
+                      })
                   }
                 </select>
               </div>
@@ -192,7 +213,7 @@ const Register = () => {
             />
           </form>
           <p className="text-lg text-priColor mt-6 ">
-            Already have an account? Go for{" "}
+            Already have an account? Go for
             <Link to="/login" className="underline">
               Login
             </Link>
