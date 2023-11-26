@@ -7,11 +7,11 @@ const useDistricts = () => {
     const [districts, setDistricts] = useState([])
 
     useEffect(()=>{
-        myAxios.get("/districts")
+        myAxios.get("/districts", {withCredentials:true})
         .then(res=> {
             setDistricts(res.data)
         })
-    },[])
+    },[myAxios])
 
     return districts
 }

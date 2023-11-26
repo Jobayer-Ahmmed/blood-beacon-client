@@ -7,7 +7,7 @@ const useUpzilas = () => {
     const [upzilas, setUpzilas] = useState([])
 
     useEffect(()=>{
-        myAxios.get("/upzilas")
+        myAxios.get("/upzilas", {withCredentials:true})
         .then(res=> {
             setUpzilas(res.data)
         })
