@@ -4,7 +4,9 @@ import Home from "../Pages/Home/Home/Home";
 import Register from "../Pages/Register/Register";
 import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import DashboardLayout from "../Layouts/DashboardLayout";
-import DashboardHome from "../Dashboard/Home/Home/DashboardHome";
+import Dashboard from "../Dashboard/Dashboard/Dashboard";
+import Profile from "../Dashboard/Pages/Profile/Profile";
+
 
 
 
@@ -30,8 +32,15 @@ const router = createBrowserRouter([
         children:[
             {
                 path:"/dashboard",
-                element:<DashboardHome/>
-            }
+                element:<Dashboard/>,
+
+            },
+                    
+            {
+                path:"/dashboard/profile",
+                element:<Profile/>
+            },
+
         ]
     }
 ])
