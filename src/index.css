@@ -10,3 +10,8 @@
     background-size: cover;
 
 }
+.login_page{
+    background: url("./assets/images/logImg.png") no-repeat;
+    background-position: center;
+    background-size: cover;
+}

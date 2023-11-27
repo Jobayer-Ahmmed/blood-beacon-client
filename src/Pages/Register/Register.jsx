@@ -10,6 +10,8 @@ import useAxios from "../../hooks/useAxios/useAxios";
 import { Helmet } from "react-helmet-async";
 import { updateProfile } from "firebase/auth";
 import myAuth from "../../firebase/firebase.config";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const image_upload_key = import.meta.env.VITE_Image_Uploaded_key;
 const image_upload_api = `https://api.imgbb.com/1/upload?key=${image_upload_key}`;
@@ -90,7 +92,7 @@ const Register = () => {
             })
             .then(res=>{
               console.log(res.data)
-              console.log("egistertration successful")
+              toast.success("Registration successfull")
             })
           });
 
@@ -270,6 +272,20 @@ const Register = () => {
           </button>
         </div>
       </div>
+
+      <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+        />
+
     </div>
   );
 };
