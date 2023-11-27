@@ -1,11 +1,13 @@
-import { useContext, useState } from "react";
-import { Helmet } from "react-helmet-async";
-import { MyContext } from "../../ContextApi/MyAuthProvider";
-import {FaRegEdit} from "react-icons/fa"
-import {TiDeleteOutline} from "react-icons/ti"
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react"
+import { MyContext } from "../../../ContextApi/MyAuthProvider"
+import { FaRegEdit } from "react-icons/fa"
+import { TiDeleteOutline } from "react-icons/ti"
 
-const Dashboard = () => {
+
+        // TO DO : all request
+        // TO Do : pagination 
+
+const ViewMyAllRequest = () => {
   const [donationStatus, setDonationStatus] = useState('')  
   const {myUser} = useContext(MyContext) 
   const {displayName, email} = myUser
@@ -15,21 +17,13 @@ const Dashboard = () => {
     console.log(e.target.value)
     setDonationStatus(e.target.value)
   }
- 
 
   return (
-    <div className="p-10">
-      <Helmet>
-        <title>BloodBeacon | DashBord</title>
-      </Helmet>
-      {/* dynamic name */}
-      <h1 className="text-4xl font-medium text-gray-600">Welcome, Jobayer</h1>
+    <div>
       <div>
-        <div>
-          <h3 className="text-2xl text-gray-600 mt-3">
-            You have <span className="font-bold">5</span> blood donate requset
-          </h3>
-          <div className="overflow-x-auto my-10">
+        <h1 className="text-3xl text-gray-600 font-medium">My All Donation Requests</h1>
+        <div className="mt-3 mb-10 full h-[2px] bg-red-200"></div>
+        <div className="overflow-x-auto my-10">
             <table className="table">
               {/* head */}
               <thead>
@@ -73,11 +67,10 @@ const Dashboard = () => {
               </tbody>
             </table>
           </div>
-          <Link to="/dashboard/my-donation-requests"  className="cursor-pointer  bg-red-600 px-10 py-2 text-white text-lg rounded-sm hover:rounded-xl active:bg-slate-300 active:text-red-600 active:border-[1px] active:border-red-600">View My All Request</Link>
-        </div>
+
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Dashboard;
+export default ViewMyAllRequest

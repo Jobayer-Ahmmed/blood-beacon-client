@@ -8,6 +8,9 @@ import Dashboard from "../Dashboard/Dashboard/Dashboard";
 import Profile from "../Dashboard/Pages/Profile/Profile";
 import PrivateRoute from "./PrivateRoute";
 import Login from "../Pages/Login/Login";
+import ViewMyAllRequest from "../Dashboard/Pages/ViewMyAllRequest/ViewMyAllRequest";
+import CreateDonationRequest from "../Dashboard/Pages/CreateDonationRequest/CreateDonationRequest";
+
 
 
 
@@ -46,6 +49,14 @@ const router = createBrowserRouter([
                 path:"/dashboard/profile",
                 element:<PrivateRoute><Profile/></PrivateRoute>
             },
+            {
+                path:"/dashboard/my-donation-requests",
+                element:<ViewMyAllRequest/>
+            },
+            {
+                path:"/dashboard/create-donation-request",
+                element:<CreateDonationRequest/>
+            }
 
         ]
     }
