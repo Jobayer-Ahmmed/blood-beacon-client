@@ -6,6 +6,7 @@ import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Dashboard from "../Dashboard/Dashboard/Dashboard";
 import Profile from "../Dashboard/Pages/Profile/Profile";
+import PrivateRoute from "./PrivateRoute";
 
 
 
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
     },
     {
         path:"/dashboard",
-        element:<DashboardLayout/>,
+        element:<PrivateRoute><DashboardLayout/></PrivateRoute> ,
         children:[
             {
                 path:"/dashboard",
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
                     
             {
                 path:"/dashboard/profile",
-                element:<Profile/>
+                element:<PrivateRoute><Profile/></PrivateRoute>
             },
 
         ]
