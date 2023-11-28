@@ -29,7 +29,9 @@ const CreateDonationRequest = () => {
   }, [districtName]);
 
   const onSubmit = (data) => {
-    const { email, name } = data;
+    console.log(data)
+    myAxios.post("/donation", data)
+    .then((res)=>console.log(res.data))
   };
 
   return (
