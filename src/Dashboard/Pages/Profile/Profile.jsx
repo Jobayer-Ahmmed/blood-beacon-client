@@ -5,6 +5,7 @@ import useProfile from "../../../hooks/useProfile/useProfile"
 
 const Profile = () => {
   const {blood_group, district, upzila} = useProfile()
+  
   const {myUser} = useContext(MyContext)
   const {displayName, photoURL, email} = myUser
   return (

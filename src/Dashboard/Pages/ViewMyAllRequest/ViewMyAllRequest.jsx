@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import { MyContext } from "../../../ContextApi/MyAuthProvider"
 import { FaRegEdit } from "react-icons/fa"
 import { TiDeleteOutline } from "react-icons/ti"
+import useProfile from "../../../hooks/useProfile/useProfile"
 
 
         // TO DO : all request
@@ -11,6 +12,8 @@ const ViewMyAllRequest = () => {
   const [donationStatus, setDonationStatus] = useState('')  
   const {myUser} = useContext(MyContext) 
   const {displayName, email} = myUser
+  const type = useProfile()
+  const user_type = type?.user_type
 
 
   const handleDonationStaus=e=>{
@@ -20,6 +23,9 @@ const ViewMyAllRequest = () => {
 
   return (
     <div>
+    {
+      user_type==="donor" &&
+   
       <div>
         <h1 className="text-3xl text-gray-600 font-medium">My All Donation Requests</h1>
         <div className="mt-3 mb-10 full h-[2px] bg-red-200"></div>
@@ -69,6 +75,7 @@ const ViewMyAllRequest = () => {
           </div>
 
       </div>
+    }
     </div>
   )
 }

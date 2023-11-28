@@ -8,7 +8,7 @@ import { MyContext } from "../ContextApi/MyAuthProvider";
 const PrivateRoute = ({children}) => {
     const {myUser, loading} = useContext(MyContext)
     const location = useLocation()
-    console.log(location)
+    // console.log(location)
 
     if(loading)
     return <span className="loading loading-bars loading-lg"></span>

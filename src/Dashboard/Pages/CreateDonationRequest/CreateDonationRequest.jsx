@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { MyContext } from "../../../ContextApi/MyAuthProvider";
 import useAxios from "../../../hooks/useAxios/useAxios";
 import useDistricts from "../../../hooks/useDistricts/useDistricts";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CreateDonationRequest = () => {
   const { myUser } = useContext(MyContext);
@@ -29,16 +31,44 @@ const CreateDonationRequest = () => {
   }, [districtName]);
 
   const onSubmit = (data) => {
+    const {
+      name,
+      email,
+      recipient_name,
+      districts,
+      upzilas,
+      hospital_name,
+      address,
+      donation_date,
+      donation_time,
+      request_message,
+      donation_status} = data
     console.log(data)
-    myAxios.post("/donation", data)
-    .then((res)=>console.log(res.data))
+
+    myAxios.post("/donation", {
+      name,
+      email,
+      recipient_name,
+      districts,
+      upzilas,
+      hospital_name,
+      address,
+      donation_date,
+      donation_time,
+      request_message,
+      donation_status
+    })
+    .then((res)=>{
+      toast.success("Your request has sent")
+      console.log(res.data)
+    })
   };
 
   return (
     <div>
       <div>
         <h1 className="text-3xl text-gray-600 font-medium">
-          My All Donation Requests
+          Request To Donate Blood
         </h1>
         <div className="mt-3 mb-10 full h-[2px] bg-red-200"></div>
         <div className="lg:w-1/2 bg-base-300 p-10 rounded-md  flex md:flex-row flex-col-reverse justify-center items-center">
@@ -57,7 +87,7 @@ const CreateDonationRequest = () => {
             <label className="text-xl">Email</label>
             <input
               className="mt-2 mb-5 w-full h-10 pl-3 text-lg rounded-sm"
-              {...register("Email")}
+              {...register("email")}
               type="text"
               value={email}
             />
@@ -151,6 +181,19 @@ const CreateDonationRequest = () => {
           </form>
         </div>
       </div>
+
+      <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+        />
     </div>
   );
 };
