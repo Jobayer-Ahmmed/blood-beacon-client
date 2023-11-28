@@ -9,7 +9,10 @@ import Profile from "../Dashboard/Pages/Profile/Profile";
 import PrivateRoute from "./PrivateRoute";
 import Login from "../Pages/Login/Login";
 import ViewMyAllRequest from "../Dashboard/Pages/ViewMyAllRequest/ViewMyAllRequest";
-import CreateDonationRequest from "../Dashboard/Pages/CreateDonationRequest/CreateDonationRequest";
+import AllUsers from "../Dashboard/Pages/AllUsers/AllUsers";
+import CreateDonationRequest from "../Shared/CreateDonationRequest/CreateDonationRequest";
+import ContentManagement from "../Dashboard/Pages/ContentMangement/ContentManagement";
+import AddBlog from "../Dashboard/AddBlog/AddBlog";
 
 
 
@@ -41,7 +44,7 @@ const router = createBrowserRouter([
         children:[
             {
                 path:"/dashboard",
-                element:<Dashboard/>,
+                element:<PrivateRoute><Dashboard/></PrivateRoute>,
 
             },
                     
@@ -51,11 +54,27 @@ const router = createBrowserRouter([
             },
             {
                 path:"/dashboard/my-donation-requests",
-                element:<ViewMyAllRequest/>
+                element:<PrivateRoute><ViewMyAllRequest/></PrivateRoute>
             },
             {
                 path:"/dashboard/create-donation-request",
-                element:<CreateDonationRequest/>
+                element:<PrivateRoute><CreateDonationRequest/></PrivateRoute>
+            },
+            {
+                path:"/dashboard/all-users",
+                element:<PrivateRoute><AllUsers/></PrivateRoute>
+            },
+            {
+                path:"/dashboard/all-blood-donation-request",
+                element:<PrivateRoute><CreateDonationRequest/></PrivateRoute>
+            },
+            {
+                path:"/dashboard/content-management",
+                element:<PrivateRoute><ContentManagement/></PrivateRoute>
+            },
+            {
+                path:"/dashboard/content-management/add-blog",
+                element:<AddBlog/>
             }
 
         ]

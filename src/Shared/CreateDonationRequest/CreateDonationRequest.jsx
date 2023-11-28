@@ -1,8 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { MyContext } from "../../../ContextApi/MyAuthProvider";
-import useAxios from "../../../hooks/useAxios/useAxios";
-import useDistricts from "../../../hooks/useDistricts/useDistricts";
+import { MyContext } from "../../ContextApi/MyAuthProvider";
+import useAxios from "../../hooks/useAxios/useAxios";
+import useDistricts from "../../hooks/useDistricts/useDistricts";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
