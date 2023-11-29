@@ -13,6 +13,7 @@ import AllUsers from "../Dashboard/Pages/AllUsers/AllUsers";
 import CreateDonationRequest from "../Shared/CreateDonationRequest/CreateDonationRequest";
 import ContentManagement from "../Dashboard/Pages/ContentMangement/ContentManagement";
 import AddBlog from "../Dashboard/AddBlog/AddBlog";
+import ProfileEdit from "../Dashboard/Pages/ProfileEdit/ProfileEdit";
 
 
 
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
             {
                 path:"/dashboard/content-management/add-blog",
                 element:<AddBlog/>
+            },
+            {
+                path:"/dashboard/profile-edit",
+                element:<ProfileEdit/>
             }
 
         ]

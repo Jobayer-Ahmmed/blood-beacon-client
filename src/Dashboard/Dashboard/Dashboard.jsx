@@ -6,15 +6,17 @@ import {TiDeleteOutline} from "react-icons/ti"
 import { Link } from "react-router-dom";
 import useProfile from "../../hooks/useProfile/useProfile";
 import AdminFeatureCard from "../AdminFeatureCard/AdminFeatureCard";
+import useGetDonation from "../../hooks/useGetDonation/useGetDonation";
 
 const Dashboard = () => {
   const [donationStatus, setDonationStatus] = useState('')  
+  const donations = useGetDonation()
+  console.log(donations)
   const {myUser} = useContext(MyContext) 
   const {displayName, email} = myUser
   const type = useProfile()
   const user_type = type?.user_type
 
-  console.log(user_type)
 
 
   const handleDonationStaus=e=>{
@@ -36,7 +38,7 @@ const Dashboard = () => {
       <div>
         <div>
           <h3 className="text-2xl text-gray-600 mt-3">
-            You have <span className="font-bold">5</span> blood donate requset
+            You have <span className="font-bold">{donations.length}</span> blood donate requset
           </h3>
           <div className="overflow-x-auto my-10">
             <table className="table">
@@ -57,12 +59,15 @@ const Dashboard = () => {
               </thead>
               <tbody>
                 {/* row 1 */}
-                <tr>
-                  <th>1</th>
-                  <td>Raju</td>
-                  <td>Savar, Dhaka</td>
-                  <td>11/12/2023</td>
-                  <td>10:00 am</td>
+                {
+                  donations?.map((donation,id)=><tr key={donation._id}>
+
+
+                  <th>{id+1}</th>
+                  <td>{donation.recipient_name}</td>
+                  <td>{donation.upzilas}, {donation.districts}</td>
+                  <td>{donation.donation_date}</td>
+                  <td>{donation.donation_time}</td>
                   <td>
                     <select name="" id="" className="border p-[2px]" onChange={handleDonationStaus}>
                       <option value="Pending">Pending</option>
@@ -78,7 +83,8 @@ const Dashboard = () => {
                   <td><button className="text-xl font-bold"><FaRegEdit/></button></td>
                   <td><button className="text-3xl font-bold text-red-600"><TiDeleteOutline/></button></td>
                   <td><button>Details</button></td>
-                </tr>
+                </tr>)
+                }
               </tbody>
             </table>
           </div>

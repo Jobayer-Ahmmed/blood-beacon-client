@@ -1,5 +1,5 @@
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useContext, useEffect, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
@@ -28,6 +28,7 @@ const Register = () => {
   const districts = useDistricts();
   const myAxios = useAxios();
   const [upzilas, setUpzilas] = useState([])
+  const navigate = useNavigate()
 
 
   const districtName = watch("districts")
@@ -93,6 +94,7 @@ const Register = () => {
             .then(res=>{
               console.log(res.data)
               toast.success("Registration successfull")
+              navigate("/")
             })
           });
 
