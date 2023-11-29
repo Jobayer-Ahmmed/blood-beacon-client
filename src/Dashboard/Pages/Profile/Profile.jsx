@@ -7,6 +7,7 @@ import { Link } from "react-router-dom"
 
 const Profile = () => {
   const {blood_group, district, upzila} = useProfile()
+  // console.log(blood_group, district, upzila)
   const {myUser} = useContext(MyContext)
   const {displayName, photoURL, email} = myUser
   const {

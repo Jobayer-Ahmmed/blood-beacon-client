@@ -14,6 +14,9 @@ import CreateDonationRequest from "../Shared/CreateDonationRequest/CreateDonatio
 import ContentManagement from "../Dashboard/Pages/ContentMangement/ContentManagement";
 import AddBlog from "../Dashboard/AddBlog/AddBlog";
 import ProfileEdit from "../Dashboard/Pages/ProfileEdit/ProfileEdit";
+import EditRequest from "../Dashboard/EditRequest/EditRequest";
+import axios from "axios";
+import server_url from "../URL/URL";
 
 
 
@@ -80,6 +83,11 @@ const router = createBrowserRouter([
             {
                 path:"/dashboard/profile-edit",
                 element:<ProfileEdit/>
+            },
+            {
+                path:"/dashboard/edit-request/:id",
+                element:<EditRequest/>,
+                loader: async({params})=>axios.get(`${server_url}/dashboard/edit-request/${params.id}`)
             }
 
         ]

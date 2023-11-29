@@ -15,11 +15,12 @@ const image_upload_key = import.meta.env.VITE_Image_Uploaded_key;
 const image_upload_api = `https://api.imgbb.com/1/upload?key=${image_upload_key}`;
 
 const ProfileEdit = () => {
+    const navigate = useNavigate()
     const {blood_group, district, upzila} = useProfile()
-    // console.log(blood_group)
+    // console.log(blood_group, district, upzila)
     const {myUser} = useContext(MyContext)
     const {displayName, photoURL, email} = myUser
-    // console.log(photoURL)
+
     const districts = useDistricts();
     const myAxios = useAxios();
     const [upzilas, setUpzilas] = useState([])
@@ -31,16 +32,26 @@ const ProfileEdit = () => {
       } = useForm({
         defaultValues:{
             username:displayName,
-            image:photoURL,
-            blood_group:blood_group
+            
         },
+        values:{
+          blood_group:blood_group,
+          districts:district,
+          upzilas:upzila          
+          
+        }
         
       });
 
-      const navigate = useNavigate()
+  
 
       const districtName = watch("districts")
       const upzilaName = watch("upzilas")
+      
+
+
+
+
 
       useEffect(()=>{
         myAxios.get(`/upzilas/${districtName}`)
@@ -95,7 +106,6 @@ const ProfileEdit = () => {
 
 
       };
-
   return (
     <div>
       <div>
@@ -132,7 +142,6 @@ const ProfileEdit = () => {
             <input
               {...register("image", { required: true })}
               type="file"
-             
               className="file-input w-full h-10 mt-3 text-xl"
             />
             <br />
@@ -141,8 +150,6 @@ const ProfileEdit = () => {
               <select
                 {...register("blood_group", { required: true })}
                 className="ml-5 px-4 h-10 rounded-sm text-xl"
-                // defaultChecked={blood_group}
-                defaultValue={blood_group}
               >
                 <option value="A+">A+</option>
                 <option value="A-">A-</option>
@@ -179,11 +186,12 @@ const ProfileEdit = () => {
                     <select
                       {...register("upzilas", { required: true })}
                       className="ml-5 px-4 h-10 rounded-sm text-xl"
+
                     >
                       <option>Select District First</option>
-                      {upzilas?.map((upzila) => (
-                        <option key={upzila._id} value={upzila.name}>
-                          {upzila.name}
+                      {upzilas?.map((myUpzila) => (
+                        <option key={myUpzila._id} value={myUpzila.name}>
+                          {myUpzila.name}
                         </option>
                       ))}
                     </select>
