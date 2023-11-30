@@ -112,30 +112,31 @@ const Dashboard = () => {
               <tbody>
                 {/* row 1 */}
                 {
-                  donations?.map((donation,id)=><tr key={donation._id}>
+                  donations?.slice(0,3).map((donation,id)=><tr key={donation._id}>
                   <th>{id+1} </th>
                   <td>{donation.recipient_name}</td>
                   <td>{donation.upzilas}, {donation.districts}</td>
                   <td>{donation.donation_date}</td>
                   <td>{donation.donation_time}</td>
                   <td>
-                    <select name="" id="" className="border p-[2px]" onBlur={handleDonationStaus}>
-                      {
-                        donationStatus === "Pending" && <>
-                          <option value="Pending">Pending</option>
-                          <option value="Inprogess">Inprogess</option>
-                        </>
-                      }
-                      
-                      
-                      {
-                        donationStatus === "Inprogess" ? <>
-                        <option value="Done">Done</option>
-                        <option value="Cancel">Cancel</option>
-                        </> : <></>
-
+                    <select name="" id="" className="border p-[2px]" onChange={handleDonationStaus}>
+ 
+                        <option value="Pending" className={(donationStatus==="Inprogess" || donationStatus==="Done" || donationStatus==="Cancel") && "hidden"}>Pending</option>
+                        <option value="Inprogess">Inprogess</option>
+                        {
+                          donationStatus==="Inprogess" ? <>                          
+                            <option value="Done">Done</option>
+                            <option value="Cancel">Cancel</option>
+                          </>:''
+                        }
+                        {/* {
+                          (donationStatus==="Done" || donationStatus==="Cancel")  && <>                          
+                            <option value="Done">Done</option>
+                            <option value="Cancel">Cancel</option>
+                          </>
+                        } */}
                         
-                      }
+
                     </select>
                   </td>
                   <td>
@@ -150,7 +151,7 @@ const Dashboard = () => {
               </tbody>
             </table>
           </div>
-          <Link to="/dashboard/my-donation-requests"  className="cursor-pointer  bg-red-600 px-10 py-2 text-white text-lg rounded-sm hover:rounded-xl active:bg-slate-300 active:text-red-600 active:border-[1px] active:border-red-600">View My All Request</Link>
+          <Link to="/dashboard/my-donation-requests"  className="cursor-pointer  bg-red-600 px-10 py-2 text-white text-lg rounded-sm hover:rounded-xl active:bg-slate-300 active:text-red-600 active:border-[1px] active:border-red-600">View My All Requests</Link>
           </>
           }
         </div>

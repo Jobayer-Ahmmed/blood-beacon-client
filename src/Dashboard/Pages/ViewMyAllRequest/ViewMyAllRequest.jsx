@@ -1,25 +1,77 @@
-import { useContext, useState } from "react"
+
 import { MyContext } from "../../../ContextApi/MyAuthProvider"
 import { FaRegEdit } from "react-icons/fa"
 import { TiDeleteOutline } from "react-icons/ti"
 import useProfile from "../../../hooks/useProfile/useProfile"
+import React, { useContext, useEffect, useState } from "react";
+// import {FaRegEdit} from "react-icons/fa"
+// import {TiDeleteOutline} from "react-icons/ti"
+import {  useNavigate } from "react-router-dom";
+
+import Swal from 'sweetalert2'
+import { toast } from "react-toastify";
+import useAxios from "../../../hooks/useAxios/useAxios";
 
 
         // TO DO : all request
         // TO Do : pagination 
 
 const ViewMyAllRequest = () => {
-  const [donationStatus, setDonationStatus] = useState('')  
+  const [donationStatus, setDonationStatus] =useState('')
+  const [donations, setDonations] = useState([])
+  const navigate = useNavigate()
+  // const donations = useGetDonation()
+  const myAxios = useAxios()
   const {myUser} = useContext(MyContext) 
   const {displayName, email} = myUser
   const type = useProfile()
   const user_type = type?.user_type
 
 
-  const handleDonationStaus=e=>{
-    console.log(e.target.value)
-    setDonationStatus(e.target.value)
+
+  const handleDonationStaus = React.useCallback((e) => {
+    console.log(e.target.value);
+    setDonationStatus(e.target.value);
+  }, []);
+
+  const donationDataByEmail=()=>{
+    myAxios.get(`/donation/${email}`)
+    .then(res=>{
+      setDonations(res.data)
+    })
   }
+
+
+
+  useEffect(()=>{
+    donationDataByEmail()
+  },[])
+  
+  const handleDelete= (id)=>{
+    myAxios.delete(`/donation/${id}`)
+    .then(()=>{
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          donationDataByEmail()
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
+        }
+      });
+    })
+  }
+ 
+
 
   return (
     <div>
@@ -48,28 +100,43 @@ const ViewMyAllRequest = () => {
               </thead>
               <tbody>
                 {/* row 1 */}
-                <tr>
-                  <th>1</th>
-                  <td>Raju</td>
-                  <td>Savar, Dhaka</td>
-                  <td>11/12/2023</td>
-                  <td>10:00 am</td>
+                {
+                  donations?.map((donation,id)=><tr key={donation._id}>
+                  <th>{id+1} </th>
+                  <td>{donation.recipient_name}</td>
+                  <td>{donation.upzilas}, {donation.districts}</td>
+                  <td>{donation.donation_date}</td>
+                  <td>{donation.donation_time}</td>
                   <td>
                     <select name="" id="" className="border p-[2px]" onChange={handleDonationStaus}>
-                      <option value="Pending">Pending</option>
-                      <option value="Inprogess">Inprogess</option>
-                      <option value="Done">Done</option>
-                      <option value="Cancel">Cancel</option>
+ 
+                        <option value="Pending" className={(donationStatus==="Inprogess" || donationStatus==="Done" || donationStatus==="Cancel") && "hidden"}>Pending</option>
+                        <option value="Inprogess">Inprogess</option>
+                        {
+                          donationStatus==="Inprogess" ? <>                          
+                            <option value="Done">Done</option>
+                            <option value="Cancel">Cancel</option>
+                          </>:''
+                        }
+                        {/* {
+                          (donationStatus==="Done" || donationStatus==="Cancel")  && <>                          
+                            <option value="Done">Done</option>
+                            <option value="Cancel">Cancel</option>
+                          </>
+                        } */}
+                        
+
                     </select>
                   </td>
                   <td>
                     <p>{displayName}</p>
                     <p>{email}</p>
                   </td>
-                  <td><button className="text-xl font-bold"><FaRegEdit/></button></td>
-                  <td><button className="text-3xl font-bold text-red-600"><TiDeleteOutline/></button></td>
+                  <td><button className="text-xl font-bold" onClick={()=>navigate(`/dashboard/edit-request/${donation._id}`)}><FaRegEdit/></button></td>
+                  <td><button className="text-3xl font-bold text-red-600" onClick={()=>handleDelete(donation._id)}><TiDeleteOutline/></button></td>
                   <td><button>Details</button></td>
-                </tr>
+                </tr>)
+                }
               </tbody>
             </table>
           </div>

@@ -1,5 +1,9 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
+import useAxios from "../../hooks/useAxios/useAxios";
+import { useState } from "react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
@@ -7,6 +11,8 @@ const image_upload_key = import.meta.env.VITE_Image_Uploaded_key;
 const image_upload_api = `https://api.imgbb.com/1/upload?key=${image_upload_key}`;
 
 const AddBlog = () => {
+    const [blogImage, setBlogImage] = useState('')
+    const myAxios = useAxios()
     
     const {
         register,
@@ -17,6 +23,7 @@ const AddBlog = () => {
       const onSubmit=(data)=>{
         const imageFile = { image: data.image[0] };
         console.log(imageFile)
+        const {title, content} = data
 
         axios.post(image_upload_api, imageFile, {
             headers: {
@@ -24,8 +31,14 @@ const AddBlog = () => {
             },
           })
           .then((res) => {
-            console.log(res.data);
+            console.log(res.data.data.display_url);
+            setBlogImage(res.data.data.display_url)
           })
+        
+        myAxios.post("/blog",{
+          status:"unpublish", blogImage, title, content
+        })
+        .then(()=>toast.success("Your blog is stored in Draft"))
 
       }
 
@@ -82,6 +95,20 @@ const AddBlog = () => {
             </form>
             </div>
         </div>
+
+        
+      <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+        />
     </div>
   )
 }

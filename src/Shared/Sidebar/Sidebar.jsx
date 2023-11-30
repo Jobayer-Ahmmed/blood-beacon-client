@@ -23,7 +23,7 @@ const Sidebar = () => {
           {
             user_type=== "donor" && <>
               
-              <li><NavLink to="/dashboard/create-donation-request"><AiOutlinePullRequest className="inline mr-2 text-black"/>Donation Request</NavLink></li>
+              <li><NavLink to="/dashboard/create-donation-request"><AiOutlinePullRequest className="inline mr-2 text-black"/>Create Donation Request</NavLink></li>
             </>
           }
           {

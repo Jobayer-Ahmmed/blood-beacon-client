@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import banner from "../../../assets/images/banner.jpg";
 
 const Banner = () => {
@@ -14,9 +15,9 @@ const Banner = () => {
               BloodBeacon: Sparking Hope, Saving Lives. Join our community, <br />
               donate today, and be the beacon of change
             </p>
-            <button className="text-xl text-gray-300 font-bold  bg-red-600 px-10 py-2 outline-transparent hover:outline hover:outline-white hover:bg-transparent transition duration-500 hover:transition hover:duration-500 active:bg-red-800 active:text-white">
+            <Link to="/register" className="text-xl text-gray-300 font-bold  bg-red-600 px-10 py-2 outline-transparent hover:outline hover:outline-white hover:bg-transparent transition duration-500 hover:transition hover:duration-500 active:bg-red-800 active:text-white">
               Join as a donor
-            </button>
+            </Link>
           </div>
           <div className="flex justify-center items-center">
             <div className="flex justify-center">
