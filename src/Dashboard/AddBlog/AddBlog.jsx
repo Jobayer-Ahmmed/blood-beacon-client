@@ -11,7 +11,6 @@ const image_upload_key = import.meta.env.VITE_Image_Uploaded_key;
 const image_upload_api = `https://api.imgbb.com/1/upload?key=${image_upload_key}`;
 
 const AddBlog = () => {
-    const [blogImage, setBlogImage] = useState('')
     const myAxios = useAxios()
     
     const {
@@ -21,10 +20,10 @@ const AddBlog = () => {
       } = useForm();
 
       const onSubmit=(data)=>{
-        const imageFile = { image: data.image[0] };
-        console.log(imageFile)
         const {title, content} = data
 
+
+        const imageFile = { image: data.image[0] };
         axios.post(image_upload_api, imageFile, {
             headers: {
               "content-type": "multipart/form-data",
@@ -32,13 +31,14 @@ const AddBlog = () => {
           })
           .then((res) => {
             console.log(res.data.data.display_url);
-            setBlogImage(res.data.data.display_url)
-          })
-        
+                    
         myAxios.post("/blog",{
-          status:"unpublish", blogImage, title, content
+          status:"Draft", image:res.data.data.display_url, title, content
         })
         .then(()=>toast.success("Your blog is stored in Draft"))
+
+          })
+
 
       }
 

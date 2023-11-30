@@ -17,6 +17,10 @@ import ProfileEdit from "../Dashboard/Pages/ProfileEdit/ProfileEdit";
 import EditRequest from "../Dashboard/EditRequest/EditRequest";
 import axios from "axios";
 import server_url from "../URL/URL";
+import BlogCard from "../Dashboard/BlogCard/BlogCard";
+import Fundings from "../Pages/Home/Home/Fundings/Fundings";
+
+
 
 
 
@@ -39,7 +43,21 @@ const router = createBrowserRouter([
             {
                 path:"/login",
                 element:<Login/>
+            },
+            {
+                path:"/blog",
+                element:<BlogCard/>
+            },
+            {
+                path:"/fundings",
+                element:<Fundings/>
+            },
+            {
+                path:"/donation_request",
+                element:<CreateDonationRequest/>
             }
+
+
         ]
     },
     {
@@ -78,17 +96,18 @@ const router = createBrowserRouter([
             },
             {
                 path:"/dashboard/content-management/add-blog",
-                element:<AddBlog/>
+                element:<PrivateRoute><AddBlog/></PrivateRoute>
             },
             {
                 path:"/dashboard/profile-edit",
-                element:<ProfileEdit/>
+                element:<PrivateRoute><ProfileEdit/></PrivateRoute>
             },
             {
                 path:"/dashboard/edit-request/:id",
-                element:<EditRequest/>,
+                element:<PrivateRoute><EditRequest/></PrivateRoute>,
                 loader: async({params})=>axios.get(`${server_url}/dashboard/edit-request/${params.id}`)
-            }
+            },
+
 
         ]
     }

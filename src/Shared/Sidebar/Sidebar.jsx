@@ -31,7 +31,6 @@ const Sidebar = () => {
               <li><NavLink to="/dashboard/all-users"><FaUsers  className="inline mr-2 text-black"/>All Users</NavLink></li>
               <li><NavLink to="/dashboard/all-blood-donation-request"><MdBloodtype  className="inline mr-2 text-black"/>All Blood Donation Request</NavLink></li>
               <li><NavLink to="/dashboard/content-management"><BiSolidBookContent className="inline mr-2 text-black"/>Content Management</NavLink></li>
-              <li><NavLink to="/dashboard/draft"><FaFirstdraft  className="inline mr-2 text-black"/>Draft</NavLink></li>
             </>
           }
 

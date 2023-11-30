@@ -1,23 +1,39 @@
-import { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
+import useAxios from "../../../hooks/useAxios/useAxios"
 
 
 const AllUsers = () => {
     const [userStatus, setUserStatus] = useState('Active')
     const [makeAdmin, setMakeAdmin] = useState(true)
+    const [users, setUsers] = useState([])
+    const myAxios = useAxios()
 
 
-    const handleSatus = () =>{
-        if(userStatus==="Active")
-            setUserStatus("Blocked")
-        else
-            setUserStatus("Active")
-    }
+    const handleSatus = React.useCallback((e) => {
+      console.log(e.target.value);
+
+    }, []);
+
+    useEffect(()=>{
+      myAxios.get("/users")
+      .then(res=>{
+        setUsers(res.data)
+      })
+    }, [])
+
+
+    // const handleSatus = () =>{
+    //     if(userStatus==="Active")
+    //         setUserStatus("Blocked")
+    //     else
+    //         setUserStatus("Active")
+    // }
 
     const handleAdmin =()=>{
         setMakeAdmin(!makeAdmin)
     }
-
+    
   return (
     <div>
         <div>
@@ -46,8 +62,9 @@ const AllUsers = () => {
     </thead>
     <tbody>
       {/* row 1 */}
-      <tr>
-        <td>1</td>
+    {
+      users?.map((user, id)=>      <tr key={user._id}>
+        <td>{id+1}</td>
         <td>
           <div className="flex items-center gap-3">
             <div className="avatar">
@@ -75,7 +92,8 @@ const AllUsers = () => {
         </td>
         <td> <button className="btn btn-xs btn-neutral">Make Him Admin</button> </td>
         <td> <button className="btn btn-xs btn-neutral">Make Him Volunteer</button> </td>
-      </tr>
+      </tr>)
+    }
     </tbody>
   </table>
 </div>

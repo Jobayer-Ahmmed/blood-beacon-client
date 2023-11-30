@@ -85,6 +85,7 @@ const Register = () => {
             .then(()=>console.log("update successfull"))
               // pushing data in database
             myAxios.post("/user",{
+              status:"active",
               user_type: "donor",
               email,
               district:districtName,
