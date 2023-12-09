@@ -10,7 +10,7 @@ import useGetDonation from "../../hooks/useGetDonation/useGetDonation"
 const AdminFeatureCard = () => {
     const users = useUsers()
     const donationRequest = useGetDonation()
-    console.log(donationRequest)
+
 
   return (
 <div>

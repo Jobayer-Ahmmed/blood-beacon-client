@@ -34,6 +34,7 @@ const Login = () => {
             navigate(location?.state ? location?.state: '/')
         }, 1000);
     })
+    .catch(err=>console.log(err.message))
   }
 
   const handleGoogleLogin = () => {

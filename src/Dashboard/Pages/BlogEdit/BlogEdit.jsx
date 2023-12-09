@@ -1,25 +1,37 @@
-import axios from "axios";
 import { useForm } from "react-hook-form";
-import useAxios from "../../hooks/useAxios/useAxios";
-import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
-
-
+import useAxios from "../../../hooks/useAxios/useAxios";
+import axios from "axios";
+import Swal from 'sweetalert2'
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 const image_upload_key = import.meta.env.VITE_Image_Uploaded_key;
 const image_upload_api = `https://api.imgbb.com/1/upload?key=${image_upload_key}`;
 
-const AddBlog = () => {
+
+const BlogEdit = () => {
     const myAxios = useAxios()
+    const {data} = useLoaderData()
     const navigate = useNavigate()
+   
+    const {title, image, content, _id} = data
     
     const {
         register,
         handleSubmit,
         formState: { errors },
-      } = useForm();
+      } = useForm({
+        defaultValues:{
+            title, content
+        },
+        values:{
+            image
+        }
 
-      const onSubmit=(data)=>{
+      });
+
+
+
+    const onSubmit=(data)=>{
         const {title, content} = data
 
 
@@ -32,29 +44,28 @@ const AddBlog = () => {
           .then((res) => {
             console.log(res.data.data.display_url);
                     
-        myAxios.post("/blog",{
+        myAxios.put(`/blog/${_id}`,{
           status:"Draft", image:res.data.data.display_url, title, content
         })
         .then(()=>{
-          Swal.fire({
-            title: "Your blog has stored in draft",
-            icon: "success"
-          });
-          navigate("/dashboard/content-management")
+            Swal.fire({
+                title: "Blog Edit successfull",
+                icon: "success"
+              });
+              navigate("/dashboard/content-management")
         })
 
           })
 
 
       }
-
   return (
     <div className="w-full px-5">
         <div>
-            <h1 className="text-3xl text-gray-600 font-medium"> Add Blog</h1>
-            <div className="mt-3 mb-10 full h-[2px] bg-red-200"></div>
-            <div  className="bg-base-300 p-10 rounded-lg">
-            <form
+        <h1 className="text-3xl text-gray-600 font-medium">Edit The Blog</h1>
+        <div className="mt-3 mb-10 full h-[2px] bg-red-200"></div>
+        <div  className="bg-base-300 p-10 rounded-lg">
+        <form
             className="text-black lg:w-full"
             onSubmit={handleSubmit(onSubmit)}
             >
@@ -95,7 +106,7 @@ const AddBlog = () => {
             <input
               className="cursor-pointer mt-4  h-10 bg-red-600 px-10 text-white text-lg rounded-sm hover:rounded-xl active:bg-slate-300 active:text-red-600 active:border-[1px] active:border-red-600"
               type="submit"
-              value="Create The Blog"
+              value="Update"
             />
             
             </form>
@@ -105,4 +116,4 @@ const AddBlog = () => {
   )
 }
 
-export default AddBlog
+export default BlogEdit

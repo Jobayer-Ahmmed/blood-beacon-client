@@ -5,25 +5,16 @@ import useAxios from "../../hooks/useAxios/useAxios";
 import useDistricts from "../../hooks/useDistricts/useDistricts";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useLoaderData, useNavigate } from "react-router-dom";
-
-const EditRequest = () => {
-  const {data:donationDataById} =useLoaderData()
-  const navigate= useNavigate()
-  // console.log(data)
+import useProfile from "../../hooks/useProfile/useProfile";
+import { useNavigate } from "react-router-dom";
+const DonationRequest = () => {
+  const [upzilas, setUpzilas] = useState([]);
+  const navigate = useNavigate()
   const { myUser } = useContext(MyContext);
   const { displayName, email } = myUser;
-  const {
-    _id,
-    recipient_name,
-    districts:defaultDistricts,
-    upzilas:defaultUpzilas,
-    hospital_name,
-    address,
-    donation_date,
-    donation_time,
-    request_message,
-    donation_status} = donationDataById
+  const districts = useDistricts();
+  const myAxios = useAxios();
+  const {user_type} = useProfile()
 
 
   const {
@@ -31,25 +22,9 @@ const EditRequest = () => {
     watch,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    defaultValues:{
-      recipient_name,
-      hospital_name,
-      address,
-      donation_date,
-      donation_time,
-      request_message,
-      donation_status
-    },
-    values:{
-      districts:defaultDistricts,
-      upzilas:defaultUpzilas,
-    }
-  });
+  } = useForm();
 
-  const districts = useDistricts();
-  const myAxios = useAxios();
-  const [upzilas, setUpzilas] = useState([]);
+
 
   const districtName = watch("districts");
   const upzilaName = watch("upzilas");
@@ -60,8 +35,6 @@ const EditRequest = () => {
       setUpzilas(res.data);
     });
   }, [districtName]);
-
-
 
   const onSubmit = (data) => {
     const {
@@ -78,7 +51,7 @@ const EditRequest = () => {
       donation_status} = data
     console.log(data)
 
-    myAxios.put(`/donation/update-request/${_id}`, {
+    myAxios.post("/donation", {
       name,
       email,
       recipient_name,
@@ -89,26 +62,22 @@ const EditRequest = () => {
       donation_date,
       donation_time,
       request_message,
-      donation_status
+      donation_status,
+      user_type
     })
     .then((res)=>{
-      toast.success("Your request has updated")
+      toast.success("Your request has sent")
       console.log(res.data)
       setTimeout(() => {
         navigate("/dashboard")
   }, 1000);
-
     })
   };
 
   return (
-    <div>
-      <div>
-        <h1 className="text-3xl text-gray-600 font-medium">
-          Edit Your Request
-        </h1>
-        <div className="mt-3 mb-10 full h-[2px] bg-red-200"></div>
-        <div className="lg:w-1/2 bg-base-300 p-10 rounded-md  flex md:flex-row flex-col-reverse justify-center items-center">
+    <div className="flex justify-center w-full p-5 md:px-xPadding lg:px-72 py-[120px]">
+      <div className="w-full">
+        <div className="bg-base-300 p-10 rounded-md ">
           <form
             className="text-black lg:w-full"
             onSubmit={handleSubmit(onSubmit)}
@@ -140,7 +109,7 @@ const EditRequest = () => {
             <label className=" text-xl">District</label>
             <select
               {...register("districts", { required: true })}
-              className="mt-2 mb-5 ml-5 px-4 h-10 rounded-sm text-xl"
+              className="mt-2 mb-5 md:ml-5 px-4 h-10 rounded-sm text-xl"
             >
               <option>Select One</option>
               {districts.map((district) => (
@@ -153,7 +122,7 @@ const EditRequest = () => {
             <label className=" text-xl">Upzila</label>
             <select
               {...register("upzilas", { required: true })}
-              className="mt-2 mb-5 ml-5 px-4 h-10 rounded-sm text-xl"
+              className="mt-2 mb-5 md:ml-5 px-4 h-10 rounded-sm text-xl"
             >
               <option>Select District First</option>
               {upzilas?.map((upzila) => (
@@ -233,6 +202,6 @@ const EditRequest = () => {
         />
     </div>
   );
-};
+}
 
-export default EditRequest;
+export default DonationRequest

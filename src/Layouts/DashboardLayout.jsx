@@ -6,7 +6,7 @@ const DashboardLayout = () => {
   return (
     <div className="md:px-xPadding my-myMargin">
         <div className="flex lg:flex-row flex-col gap-10">
-            <div>
+            <div className="px-5">
               <Sidebar/>
             </div>
             <div className="flex-1">

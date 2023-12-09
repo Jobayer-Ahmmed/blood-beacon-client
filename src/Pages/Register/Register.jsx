@@ -85,12 +85,14 @@ const Register = () => {
             .then(()=>console.log("update successfull"))
               // pushing data in database
             myAxios.post("/user",{
-              status:"active",
-              user_type: "donor",
+              status:"Active",
+              user_type: "Donor",
               email,
+              username,
               district:districtName,
               upzila:upzilaName,
               blood_group,
+              image:res.data.data.display_url
             })
             .then(res=>{
               console.log(res.data)
@@ -107,23 +109,23 @@ const Register = () => {
   };
 
   return (
-    <div className="register_page min-h-screen flex justify-center items-center md:p-0 p-5 ">
+    <div className="register_page min-h-screen lg:px-[200px] flex justify-center items-center md:p-0 p-5 ">
       <Helmet>
         <title>BloodBeacon | Register</title>
       </Helmet>
-      <div className="lg:w-1/2 my-28 bg-base-300 p-10 rounded-md opacity-75  flex md:flex-row flex-col-reverse justify-center items-center">
-        <div className="w-full">
+      <div className="w-[320px] md:w-[500px] lg:[1000px] mx-auto  my-28 bg-base-300 p-10 md:p-20 rounded-md opacity-75  flex md:flex-row flex-col-reverse justify-center items-center">
+        <div>
           <h1 className="text-3xl text-center font-semibold mb-6">
             Register Now!
           </h1>
           <form
-            className="text-black lg:w-full"
+            className="text-black w-full "
             onSubmit={handleSubmit(onSubmit)}
           >
             <label className="text-xl">Name</label>
             <br />
             <input
-              className="mt-3 w-full h-10 pl-3 text-lg rounded-sm"
+              className="mt-3 h-10 pl-3 text-lg rounded-sm"
               {...register("username", { required: true })}
               type="text"
               placeholder="Name"
@@ -136,7 +138,7 @@ const Register = () => {
             <label className="mt-5 text-xl">Email</label>
             <br />
             <input
-              className="mt-3  w-full h-10 pl-3 text-lg rounded-sm"
+              className="mt-3  h-10 pl-3 text-lg rounded-sm"
               {...register("email", { required: true })}
               type="email"
               placeholder="Email"
@@ -151,7 +153,7 @@ const Register = () => {
                 <label className="mt-5 text-xl">Password</label>
                 <br />
                 <input
-                  className="mt-3 mb-5 w-full h-9 pl-3 text-lg rounded-sm"
+                  className="mt-3 mb-5 h-9 pl-3 text-lg rounded-sm"
                   {...register("password", {
                     required: true,
                     minLength: 6,
@@ -176,11 +178,11 @@ const Register = () => {
                   </span>
                 )}
               </div>
-              <div className="w-full">
+              <div className="">
                 <label className="mt-5 text-xl">Confirm Password</label>
                 <br />
                 <input
-                  className="mt-3 mb-5 w-full h-9 pl-3 text-lg rounded-sm"
+                  className="mt-3 mb-5 h-9 pl-3 text-lg rounded-sm"
                   {...register("confirm_password", { required: true })}
                   type="password"
                   placeholder="Confirm Password"
@@ -198,12 +200,12 @@ const Register = () => {
                 )}
               </div>
             </div>
-            <label className="mt-5 text-xl">Upload Your Image</label>
+            <label className="mt-5 text-xl ">Upload Your Image</label>
             <br />
             <input
               {...register("image", { required: true })}
               type="file"
-              className="file-input w-full h-10 mt-3 text-xl"
+              className="file-input h-10 mt-3 text-xl w-[250px] md:w-full"
             />{" "}
             <br />
             <div className="mt-5">
@@ -219,12 +221,12 @@ const Register = () => {
                 <option value="AB+">AB+</option>
                 <option value="AB-">AB-</option>
                 <option value="O+">O+</option>
-                <option value="O+">O-</option>
+                <option value="O-">O-</option>
               </select>
             </div>
 
             {/* for option */}
-            <div className="mt-5 flex md:justify-between">
+            <div className="mt-5 flex flex-col md:flex-row md:justify-between">
               <div>
                 <label className=" text-xl">District</label>
                   <select
@@ -242,7 +244,7 @@ const Register = () => {
               </div>
 
               <div>
-                <div>
+                <div className="">
                   <label className=" text-xl">Upzila</label>
                     <select
                       {...register("upzilas", { required: true })}

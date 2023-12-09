@@ -29,16 +29,8 @@ const Navbar = () => {
             <li className="text-lg">
               <NavLink to="/fundings">Fundings</NavLink>
             </li>
-
-
-
-            {/* {
-              email==="admin@admin.me" &&  <li>
-              <NavLink to="/librarian">Librarian</NavLink>
-              </li>
-              
-    
-            } */}
+            <li className="lg:hidden"><NavLink  to="/login">Login</NavLink></li>
+            <li className="lg:hidden"><NavLink to="/register">Register</NavLink></li>
 
   </>
 
@@ -64,7 +56,7 @@ const Navbar = () => {
       .catch((err) => console.log(err.message));
   };
   return (
-    <div className="navbar bg-base-100 fixed z-50 opacity-75 px-xPadding2 md:px-xPadding">
+    <div className="navbar bg-base-100 fixed z-50 opacity-90 px-xPadding2 md:px-xPadding">
       <div className="navbar-start">
         <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -93,11 +85,11 @@ const Navbar = () => {
         {/* for logo */}
         <div>
           <span className="">
-            <img src={logo} className="h-20" />
+            <img src={logo} className="h-10 md:h-12 lg:h-16" />
           </span>
         </div>
       </div>
-      <div className="navbar-center hidden lg:flex">
+      <div className="z-50 navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
         {navlinks}
         </ul>
@@ -127,7 +119,7 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <ul className="flex gap-6">
+          <ul className="flex gap-6 invisible md:visible">
             <li>
               <Link to="/login">Login</Link>
             </li>

@@ -8,7 +8,6 @@ import Dashboard from "../Dashboard/Dashboard/Dashboard";
 import Profile from "../Dashboard/Pages/Profile/Profile";
 import PrivateRoute from "./PrivateRoute";
 import Login from "../Pages/Login/Login";
-import ViewMyAllRequest from "../Dashboard/Pages/ViewMyAllRequest/ViewMyAllRequest";
 import AllUsers from "../Dashboard/Pages/AllUsers/AllUsers";
 import CreateDonationRequest from "../Shared/CreateDonationRequest/CreateDonationRequest";
 import ContentManagement from "../Dashboard/Pages/ContentMangement/ContentManagement";
@@ -17,8 +16,16 @@ import ProfileEdit from "../Dashboard/Pages/ProfileEdit/ProfileEdit";
 import EditRequest from "../Dashboard/EditRequest/EditRequest";
 import axios from "axios";
 import server_url from "../URL/URL";
-import BlogCard from "../Dashboard/BlogCard/BlogCard";
 import Fundings from "../Pages/Home/Home/Fundings/Fundings";
+import DonationRequest from "../Pages/DonationRequest/DonationRequest";
+import Blog from "../Pages/Blog/Blog";
+import BlogEdit from "../Dashboard/Pages/BlogEdit/BlogEdit";
+import BlogRead from "../Dashboard/Pages/BlogRead/BlogRead";
+import AllUsersDonationRequest from "../Dashboard/Pages/AllUsersDonationRequest/AllUsersDonationRequest";
+import MyBloodDonationRequest from "../Shared/MyBloodDonationRequest/MyBloodDonationRequest";
+import DonationRequestDetails from "../Shared/DonationRequestDetails/DonationRequestDetails";
+import ViewMyAllRequest from "../Dashboard/Pages/ViewMyAllRequest/ViewMyAllRequest";
+import SearchDonor from "../Pages/SearchDonor/SearchDonor";
 
 
 
@@ -46,15 +53,19 @@ const router = createBrowserRouter([
             },
             {
                 path:"/blog",
-                element:<BlogCard/>
+                element:<Blog/>
             },
             {
                 path:"/fundings",
                 element:<Fundings/>
             },
             {
+                path:"/search-donor",
+                element:<SearchDonor/>
+            },
+            {
                 path:"/donation_request",
-                element:<CreateDonationRequest/>
+                element:<PrivateRoute><DonationRequest/></PrivateRoute>
             }
 
 
@@ -88,7 +99,7 @@ const router = createBrowserRouter([
             },
             {
                 path:"/dashboard/all-blood-donation-request",
-                element:<PrivateRoute><CreateDonationRequest/></PrivateRoute>
+                element:<PrivateRoute><AllUsersDonationRequest/></PrivateRoute>
             },
             {
                 path:"/dashboard/content-management",
@@ -107,6 +118,26 @@ const router = createBrowserRouter([
                 element:<PrivateRoute><EditRequest/></PrivateRoute>,
                 loader: async({params})=>axios.get(`${server_url}/dashboard/edit-request/${params.id}`)
             },
+            {
+                path:"/dashboard/blog/edit/:id",
+                element:<PrivateRoute><BlogEdit/></PrivateRoute>,
+                loader: async({params})=>axios.get(`${server_url}/dashboard/blog/edit/${params.id}`)
+            },
+            {
+                path:`/dashboard/blog/read/:id`,
+                element: <BlogRead/>,
+                loader: async({params})=>axios.get(`${server_url}/dashboard/blog/read/${params.id}`)
+
+            },
+            {
+                path:"/dashboard/my-blood-donation-request",
+                element:<PrivateRoute><MyBloodDonationRequest/></PrivateRoute>
+            },
+            {
+                path:"/dashboard/donation-requset-details/:id",
+                element:<PrivateRoute><DonationRequestDetails/></PrivateRoute>,
+                loader: async({params})=>axios.get(`${server_url}/dashboard/donation-requset-details/${params.id}`)
+            }
 
 
         ]

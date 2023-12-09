@@ -1,0 +1,13 @@
+<div className="flex justify-center items-center">
+<div className="flex justify-center">
+  <input
+    className="w-full lg:w-96 h-12 pl-5 text-lg text-black font-semibold rounded-l-full opacity-60"
+    type="text"
+    placeholder="Find Donors ... "
+    name="search"
+  />
+  <button className="w-72 md:w-60 lg:w-40 md:text-lg text-gray-200 font-bold h-12  rounded-r-full bg-red-600 active:text-white">
+    Search Donors
+  </button>
+</div>
+</div>

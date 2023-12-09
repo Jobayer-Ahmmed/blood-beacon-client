@@ -5,10 +5,19 @@ import useAxios from "../../hooks/useAxios/useAxios";
 import useDistricts from "../../hooks/useDistricts/useDistricts";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useProfile from "../../hooks/useProfile/useProfile";
+import { useNavigate } from "react-router-dom";
 
 const CreateDonationRequest = () => {
+  const [upzilas, setUpzilas] = useState([]);
+  const navigate = useNavigate()
   const { myUser } = useContext(MyContext);
   const { displayName, email } = myUser;
+  const districts = useDistricts();
+  const myAxios = useAxios();
+  const {user_type, status} = useProfile()
+
+
   const {
     register,
     watch,
@@ -16,9 +25,7 @@ const CreateDonationRequest = () => {
     formState: { errors },
   } = useForm();
 
-  const districts = useDistricts();
-  const myAxios = useAxios();
-  const [upzilas, setUpzilas] = useState([]);
+
 
   const districtName = watch("districts");
   const upzilaName = watch("upzilas");
@@ -56,16 +63,26 @@ const CreateDonationRequest = () => {
       donation_date,
       donation_time,
       request_message,
-      donation_status
+      donation_status,
+      user_type
     })
     .then((res)=>{
       toast.success("Your request has sent")
       console.log(res.data)
+      setTimeout(() => {
+        navigate("/dashboard")
+  }, 1000);
     })
   };
 
   return (
-    <div>
+    <>
+    {
+      status==="Block" ? <div className="my-myMargin">
+        <h1 className="text-3xl text-red-600 font-medium text-center">You have been blocked</h1>
+        <p className="text-xl text-gray-600 font-medium text-center mt-6">Please, contact with BloodBeacon</p>
+      </div>:
+      <div className="w-full px-5">
       <div>
         <h1 className="text-3xl text-gray-600 font-medium">
           Request To Donate Blood
@@ -195,6 +212,10 @@ const CreateDonationRequest = () => {
             theme="colored"
         />
     </div>
+    }
+    </>
+
+
   );
 };
 

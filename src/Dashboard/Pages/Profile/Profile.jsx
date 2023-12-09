@@ -18,7 +18,7 @@ const Profile = () => {
   } = useForm();
 
   return (
-    <div>
+    <div className="w-full px-10">
         <div>
             <div className="flex justify-center">
                 <img name="image" className="h-64 w-64 rounded-full" src={photoURL} alt="" />

@@ -8,6 +8,7 @@ import { RiRefund2Fill } from "react-icons/ri"
 import { MdBloodtype } from "react-icons/md"
 import { BiSolidBookContent } from "react-icons/bi"
 import { FaFirstdraft } from "react-icons/fa"
+import { MdOutlineBloodtype } from "react-icons/md"
 
 
 const Sidebar = () => {
@@ -19,16 +20,19 @@ const Sidebar = () => {
         <ul>
           <li><NavLink to="/dashboard"><MdDashboard className="inline mr-2 text-black"/>Dashboard</NavLink></li>
           <li><NavLink to="/dashboard/profile"><CgProfile className="inline mr-2 text-black"/>Profile</NavLink></li>
-          
+          <li><NavLink to="/dashboard/create-donation-request"><AiOutlinePullRequest className="inline mr-2 text-black"/>Create Donation Request</NavLink></li>
+
+
           {
-            user_type=== "donor" && <>
-              
-              <li><NavLink to="/dashboard/create-donation-request"><AiOutlinePullRequest className="inline mr-2 text-black"/>Create Donation Request</NavLink></li>
+            user_type=== "Volunteer" && <>
+            <li><NavLink to="/dashboard/my-blood-donation-request"><MdOutlineBloodtype  className="inline mr-2 text-black"/>My Blood Donation Request</NavLink></li>
+            <li><NavLink to="/dashboard/all-blood-donation-request"><MdBloodtype  className="inline mr-2 text-black"/>All Blood Donation Request</NavLink></li>
             </>
           }
           {
-            user_type=== "admin" && <>
+            user_type=== "Admin" && <>
               <li><NavLink to="/dashboard/all-users"><FaUsers  className="inline mr-2 text-black"/>All Users</NavLink></li>
+              <li><NavLink to="/dashboard/my-blood-donation-request"><MdOutlineBloodtype  className="inline mr-2 text-black"/>My Blood Donation Request</NavLink></li>
               <li><NavLink to="/dashboard/all-blood-donation-request"><MdBloodtype  className="inline mr-2 text-black"/>All Blood Donation Request</NavLink></li>
               <li><NavLink to="/dashboard/content-management"><BiSolidBookContent className="inline mr-2 text-black"/>Content Management</NavLink></li>
             </>

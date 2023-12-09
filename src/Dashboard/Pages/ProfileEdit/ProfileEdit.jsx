@@ -49,10 +49,6 @@ const ProfileEdit = () => {
       const upzilaName = watch("upzilas")
       
 
-
-
-
-
       useEffect(()=>{
         myAxios.get(`/upzilas/${districtName}`)
         .then(res=>{
@@ -60,13 +56,6 @@ const ProfileEdit = () => {
           setUpzilas(res.data)
         })
       },[districtName])
-
-    //   useEffect(()=>{
-    //     myAxios.get(`/user/${email}`)
-    //     .then(res=>{
-    //         console.log(res.data)
-    //     })
-    //   },[])
 
       const onSubmit = (data) => {
         const { username,blood_group } = data;
@@ -107,31 +96,31 @@ const ProfileEdit = () => {
 
       };
   return (
-    <div>
+    <div className="w-full px-5 md:px-xPadding">
       <div>
         <h1 className="text-3xl text-gray-600 font-medium"> Change Your Profile</h1>
         <div className="mt-3 mb-10 full h-[2px] bg-red-200"></div>
-        <div    className="w-full my-28 bg-base-300 p-10 rounded-md flex md:flex-row flex-col-reverse justify-center items-center">
+        <div    className="w-full my-16 lg:my-28 bg-base-300 p-10 rounded-md flex md:flex-row flex-col-reverse justify-center items-center">
         
         <form
-            className="text-black lg:w-full"
+            className="text-black w-full"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <label className="mt-5 text-xl">Email</label>
+            <label className="mt-5 text-xl">Email</label> <br />
             <input
-              className="mt-3  w-full h-10 pl-3 text-lg rounded-sm"
+              className="mt-3  md:w-full h-10 pl-3 text-lg rounded-sm"
               {...register("email", { required: true })}
               type="email"
               value={email}
-            />
+            /> <br />
             <label className="text-xl">Name</label>
             <br />
             <input
-              className="mt-3 w-full h-10 pl-3 text-lg rounded-sm"
+              className="mt-3 md:w-full h-10 pl-3 text-lg rounded-sm"
               {...register("username", { required: true })}
               type="text"
               placeholder="Name"
-            />
+            /> <br />
             <br />
             {errors.username && (
               <span className="text-red-600">Username is required</span>
@@ -163,13 +152,13 @@ const ProfileEdit = () => {
             </div>
 
             {/* for option */}
-            <div className="mt-5 flex md:justify-between">
+            <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-10">
               <div>
                 <label className=" text-xl">District</label>
                   <select
 
                     {...register("districts", { required: true })}
-                    className="ml-5 px-4 h-10 rounded-sm text-xl"
+                    className="lg:ml-5 px-4 h-10 rounded-sm text-xl"
                   >
                     <option>Select One</option>
                     {districts.map((district) => 
@@ -185,7 +174,7 @@ const ProfileEdit = () => {
                   <label className=" text-xl">Upzila</label>
                     <select
                       {...register("upzilas", { required: true })}
-                      className="ml-5 px-4 h-10 rounded-sm text-xl"
+                      className="lg:ml-5 px-4 h-10 rounded-sm text-xl"
 
                     >
                       <option>Select District First</option>

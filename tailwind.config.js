@@ -17,7 +17,7 @@ export default {
       spacing: {
         xPadding: "60px",
         xPadding2: "20px",
-        myWidth: "1200px",
+        myWidth: "1010px",
         myMargin: "80px",
         titleMargin: "30px",
       },
