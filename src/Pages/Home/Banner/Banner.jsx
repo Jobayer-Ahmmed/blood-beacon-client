@@ -15,14 +15,12 @@ const Banner = () => {
               BloodBeacon: Sparking Hope, Saving Lives. Join our community, <br />
               donate today, and be the beacon of change
             </p>
-            <div className="flex flex-col md:flex-row gap-10">
-            <Link to="/register"  className="text-xl text-center text-gray-300 font-bold  bg-red-600 px-10 py-2 outline-transparent hover:outline hover:outline-white hover:bg-transparent transition duration-500 hover:transition hover:duration-500 active:bg-red-800 active:text-white">
-              Join as a donor
-            </Link>
+
+
             <Link to="/search-donor" className="text-xl text-center text-gray-300 font-bold  bg-red-600 px-10 py-2 outline-transparent hover:outline hover:outline-white hover:bg-transparent transition duration-500 hover:transition hover:duration-500 active:bg-red-800 active:text-white">
               Search donor
             </Link>
-            </div>
+
           </div>
 
         </div>

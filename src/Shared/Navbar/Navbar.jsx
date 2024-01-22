@@ -96,7 +96,7 @@ const Navbar = () => {
       </div>
       <div className="navbar-end">
         {myUser ? (
-          <div className="">
+          <div className="mr-10">
             <div className="dropdown dropdown-end">
               <label tabIndex={0}>
                       <img className="w-10 h-10 hover:w-11 hover:h-11 rounded-full" src={myUser.photoURL} alt="" />
@@ -119,12 +119,12 @@ const Navbar = () => {
             </div>
           </div>
         ) : (
-          <ul className="flex gap-6 invisible md:visible">
+          <ul className="mr-10 flex gap-6 text-xl invisible md:visible">
             <li>
-              <Link to="/login">Login</Link>
+              <Link className="py-2 px-8 border-2 rounded" to="/login">Login</Link>
             </li>
             <li>
-              <Link to="/register">Register</Link>
+              <Link className="py-2 px-8 border-2 rounded" to="/register">Register</Link>
             </li>
           </ul>
         )}

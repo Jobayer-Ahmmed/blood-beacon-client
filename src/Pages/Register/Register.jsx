@@ -1,8 +1,6 @@
-
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useContext, useEffect, useState } from "react";
-import { FaGoogle } from "react-icons/fa";
 import { MyContext } from "../../ContextApi/MyAuthProvider";
 import axios from "axios";
 import useDistricts from "../../hooks/useDistricts/useDistricts";
@@ -10,14 +8,14 @@ import useAxios from "../../hooks/useAxios/useAxios";
 import { Helmet } from "react-helmet-async";
 import { updateProfile } from "firebase/auth";
 import myAuth from "../../firebase/firebase.config";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const image_upload_key = import.meta.env.VITE_Image_Uploaded_key;
 const image_upload_api = `https://api.imgbb.com/1/upload?key=${image_upload_key}`;
 
 const Register = () => {
-  const { createMyUser, googleLogin } = useContext(MyContext);
+  const { createMyUser } = useContext(MyContext);
   const {
     register,
     watch,
@@ -27,50 +25,29 @@ const Register = () => {
   const [isConfirm, setIsConfirm] = useState(false);
   const districts = useDistricts();
   const myAxios = useAxios();
-  const [upzilas, setUpzilas] = useState([])
-  const navigate = useNavigate()
+  const [upzilas, setUpzilas] = useState([]);
+  const navigate = useNavigate();
 
+  const districtName = watch("districts");
+  const upzilaName = watch("upzilas");
 
-  const districtName = watch("districts")
-  const upzilaName = watch("upzilas")
-
-
-
- 
-
-
-  useEffect(()=>{
-    myAxios.get(`/upzilas/${districtName}`)
-    .then(res=>{
+  useEffect(() => {
+    myAxios.get(`/upzilas/${districtName}`).then((res) => {
       // console.log(res.data)
-      setUpzilas(res.data)
-    })
-  },[districtName])
-
-  const handleGoogleLogin = () => {
-    // googleLogin()
-    // .then((res)=>{
-    //     console.log(res)
-    //     myAxios.post(`/user?email=${res.user.email}`,{
-    //         email:res.user.email
-    //     })
-    //     .then(()=>{
-    //             console.log("signup successfull")
-    //     })
-    // })
-  };
+      setUpzilas(res.data);
+    });
+  }, [districtName]);
 
   const onSubmit = (data) => {
-    const { email, password, confirm_password, username,blood_group } = data;
+    const { email, password, confirm_password, username, blood_group } = data;
     const imageFile = { image: data.image[0] };
-   
-
 
     if (password === confirm_password) {
       setIsConfirm(false);
       createMyUser(email, password).then(() => {
-          // for image insert in imgbb
-          axios.post(image_upload_api, imageFile, {
+        // for image insert in imgbb
+        axios
+          .post(image_upload_api, imageFile, {
             headers: {
               "content-type": "multipart/form-data",
             },
@@ -79,29 +56,27 @@ const Register = () => {
             console.log(res.data);
             // for pushing name & image in firebase
             updateProfile(myAuth.currentUser, {
-              displayName: username, 
-              photoURL: res.data.data.display_url
+              displayName: username,
+              photoURL: res.data.data.display_url,
+            }).then(() => console.log("update successfull"));
+            // pushing data in database
+            myAxios
+              .post("/user", {
+                status: "Active",
+                user_type: "Donor",
+                email,
+                username,
+                district: districtName,
+                upzila: upzilaName,
+                blood_group,
+                image: res.data.data.display_url,
               })
-            .then(()=>console.log("update successfull"))
-              // pushing data in database
-            myAxios.post("/user",{
-              status:"Active",
-              user_type: "Donor",
-              email,
-              username,
-              district:districtName,
-              upzila:upzilaName,
-              blood_group,
-              image:res.data.data.display_url
-            })
-            .then(res=>{
-              console.log(res.data)
-              toast.success("Registration successfull")
-              navigate("/")
-            })
+              .then((res) => {
+                console.log(res.data);
+                toast.success("Registration successfull");
+                navigate("/");
+              });
           });
-
-
       });
     } else {
       setIsConfirm(true);
@@ -109,11 +84,11 @@ const Register = () => {
   };
 
   return (
-    <div className="register_page min-h-screen lg:px-[200px] flex justify-center items-center md:p-0 p-5 ">
+    <div className="register_page min-h-screen flex justify-center items-center md:p-0 p-5 ">
       <Helmet>
         <title>BloodBeacon | Register</title>
       </Helmet>
-      <div className="w-[320px] md:w-[500px] lg:[1000px] mx-auto  my-28 bg-base-300 p-10 md:p-20 rounded-md opacity-75  flex md:flex-row flex-col-reverse justify-center items-center">
+      <div className="w-[95%] md:w-[70%] lg:w-[45%] my-28 bg-base-300 p-10 md:p-20 rounded-md opacity-75  flex md:flex-row flex-col-reverse justify-center items-center">
         <div>
           <h1 className="text-3xl text-center font-semibold mb-6">
             Register Now!
@@ -125,7 +100,7 @@ const Register = () => {
             <label className="text-xl">Name</label>
             <br />
             <input
-              className="mt-3 h-10 pl-3 text-lg rounded-sm"
+              className="mt-3 h-10 pl-3 text-lg w-full rounded-sm"
               {...register("username", { required: true })}
               type="text"
               placeholder="Name"
@@ -138,7 +113,7 @@ const Register = () => {
             <label className="mt-5 text-xl">Email</label>
             <br />
             <input
-              className="mt-3  h-10 pl-3 text-lg rounded-sm"
+              className="mt-3 w-full h-10 pl-3 text-lg rounded-sm"
               {...register("email", { required: true })}
               type="email"
               placeholder="Email"
@@ -148,12 +123,12 @@ const Register = () => {
               <span className="text-red-600">Email is required</span>
             )}{" "}
             <br />
-            <div className="lg:flex lg:justify-between lg:gap-10 w-full">
+            <div className="lg:flex lg:justify-between  w-full  lg:gap-10">
               <div className="w-full">
                 <label className="mt-5 text-xl">Password</label>
                 <br />
                 <input
-                  className="mt-3 mb-5 h-9 pl-3 text-lg rounded-sm"
+                  className="mt-3 mb-5 h-9 pl-3 text-lg rounded-sm w-full lg:w-52"
                   {...register("password", {
                     required: true,
                     minLength: 6,
@@ -182,7 +157,7 @@ const Register = () => {
                 <label className="mt-5 text-xl">Confirm Password</label>
                 <br />
                 <input
-                  className="mt-3 mb-5 h-9 pl-3 text-lg rounded-sm"
+                  className="mt-3 mb-5 h-9 pl-3 text-lg rounded-sm w-full lg:w-52"
                   {...register("confirm_password", { required: true })}
                   type="password"
                   placeholder="Confirm Password"
@@ -205,14 +180,14 @@ const Register = () => {
             <input
               {...register("image", { required: true })}
               type="file"
-              className="file-input h-10 mt-3 text-xl w-[250px] md:w-full"
+              className="file-input h-10 mt-3 rounded-sm text-xl w-full"
             />{" "}
             <br />
             <div className="mt-5">
               <label className=" text-xl">Blood Group</label>
               <select
                 {...register("blood_group", { required: true })}
-                className="ml-5 px-4 h-10 rounded-sm text-xl"
+                className="mt-3 px-4 h-10 rounded-sm text-xl w-full"
               >
                 <option value="A+">A+</option>
                 <option value="A-">A-</option>
@@ -224,73 +199,64 @@ const Register = () => {
                 <option value="O-">O-</option>
               </select>
             </div>
-
             {/* for option */}
-            <div className="mt-5 flex flex-col md:flex-row md:justify-between">
+            <div className="mt-5 lg:flex lg:justify-between lg:gap-10 w-full">
               <div>
-                <label className=" text-xl">District</label>
-                  <select
-
-                    {...register("districts", { required: true })}
-                    className="ml-5 px-4 h-10 rounded-sm text-xl"
-                  >
-                    <option>Select One</option>
-                    {districts.map((district) => 
-                      <option key={district._id} value={district.name}>
-                        {district.name}
-                      </option>
-                 )}
-                  </select>
+                <label className=" text-xl">District</label> <br />
+                <select
+                  {...register("districts", { required: true })}
+                  className="mt-3 px-4 h-10 rounded-sm text-xl w-full"
+                >
+                  <option>Select One</option>
+                  {districts.map((district) => (
+                    <option key={district._id} value={district.name}>
+                      {district.name}
+                    </option>
+                  ))}
+                </select>
               </div>
-
-              <div>
-                <div className="">
-                  <label className=" text-xl">Upzila</label>
-                    <select
-                      {...register("upzilas", { required: true })}
-                      className="ml-5 px-4 h-10 rounded-sm text-xl"
-                    >
-                      <option>Select District First</option>
-                      {upzilas?.map((upzila) => (
-                        <option key={upzila._id} value={upzila.name}>
-                          {upzila.name}
-                        </option>
-                      ))}
-                    </select>
-                </div>
+              <div className="mt-5 lg:mt-0">
+                <label className=" text-xl">Upzila</label> <br />
+                <select
+                  {...register("upzilas", { required: true })}
+                  className="mt-3 px-4 h-10 rounded-sm text-xl w-full"
+                >
+                  <option>Select District First</option>
+                  {upzilas?.map((upzila) => (
+                    <option key={upzila._id} value={upzila.name}>
+                      {upzila.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
             <input
-              className="cursor-pointer mt-4  h-10 bg-red-600 px-10 text-white text-lg rounded-sm hover:rounded-xl active:bg-slate-300 active:text-red-600 active:border-[1px] active:border-red-600"
+              className="cursor-pointer mt-10  h-10 bg-red-600 px-10 text-white text-lg rounded-sm hover:rounded-xl active:bg-slate-300 active:text-red-600 active:border-[1px] active:border-red-600"
               type="submit"
               value="Register"
             />
           </form>
           <p className="text-lg text-priColor mt-6 ">
-            Already have an account? Go for
+            Already have an account? Go for &nbsp;
             <Link to="/login" className="underline">
               Login
             </Link>
           </p>
-          <button className="btn btn-ghost" onClick={handleGoogleLogin}>
-            <FaGoogle />
-          </button>
         </div>
       </div>
 
       <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="colored"
-        />
-
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     </div>
   );
 };

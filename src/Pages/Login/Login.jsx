@@ -2,7 +2,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useContext } from "react";
-import { FaGoogle } from "react-icons/fa";
 import { MyContext } from "../../ContextApi/MyAuthProvider";
 import { Helmet } from "react-helmet-async";
 import { ToastContainer, toast } from 'react-toastify';
@@ -12,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const Login = () => {
-  const { myLogin, googleLogin } = useContext(MyContext);
+  const { myLogin} = useContext(MyContext);
   const navigate = useNavigate()
   const location = useLocation()
   
@@ -37,28 +36,14 @@ const Login = () => {
     .catch(err=>console.log(err.message))
   }
 
-  const handleGoogleLogin = () => {
-    // googleLogin()
-    // .then((res)=>{
-    //     console.log(res)
-    //     myAxios.post(`/user?email=${res.user.email}`,{
-    //         email:res.user.email
-    //     })
-    //     .then(()=>{
-    //             console.log("signup successfull")
-    //     })
-    // })
-  };
-
-
-  
+ 
 
   return (
     <div className="login_page min-h-screen flex justify-center items-center md:p-0 p-5 ">
       <Helmet>
         <title>BloodBeacon | Login</title>
       </Helmet>
-      <div className="lg:w-1/2 mt-32 mb-myMargin bg-base-300 p-10 rounded-md opacity-75  flex md:flex-row flex-col-reverse justify-center items-center">
+      <div className="lg:w-2/5 mt-32 mb-myMargin bg-base-300 p-10 rounded-md opacity-75  flex md:flex-row flex-col-reverse justify-center items-center">
         <div className="w-full">
           <h1 className="text-3xl text-center font-semibold mb-6">
             Login Now!
@@ -67,7 +52,7 @@ const Login = () => {
             className="text-black lg:w-full"
             onSubmit={handleSubmit(onSubmit)}
           >
-            <label className="mt-5 text-xl">Email</label>
+            <label className="mt-5 text-xl text-priColor">Email</label>
             <br />
             <input
               className="mt-3  w-full h-10 pl-3 text-lg rounded-sm"
@@ -82,7 +67,7 @@ const Login = () => {
             <br />
             <div className="lg:flex lg:justify-between lg:gap-10 w-full">
               <div className="w-full">
-                <label className="mt-5 text-xl">Password</label>
+                <label className="mt-5 text-xl text-priColor">Password</label>
                 <br />
                 <input
                   className="mt-3 mb-5 w-full h-9 pl-3 text-lg rounded-sm"
@@ -115,14 +100,11 @@ const Login = () => {
             />
           </form>
           <p className="text-lg text-priColor mt-6 ">
-            Don&apos;t have an account? Go for
+            Don&apos;t have an account? Go for &nbsp;
             <Link to="/register" className="underline">
               Register
             </Link>
           </p>
-          <button className="btn btn-ghost" onClick={handleGoogleLogin}>
-            <FaGoogle />
-          </button>
         </div>
       </div>
 

@@ -16,7 +16,6 @@ import ProfileEdit from "../Dashboard/Pages/ProfileEdit/ProfileEdit";
 import EditRequest from "../Dashboard/EditRequest/EditRequest";
 import axios from "axios";
 import server_url from "../URL/URL";
-import Fundings from "../Pages/Home/Home/Fundings/Fundings";
 import DonationRequest from "../Pages/DonationRequest/DonationRequest";
 import Blog from "../Pages/Blog/Blog";
 import BlogEdit from "../Dashboard/Pages/BlogEdit/BlogEdit";
@@ -55,10 +54,7 @@ const router = createBrowserRouter([
                 path:"/blog",
                 element:<Blog/>
             },
-            {
-                path:"/fundings",
-                element:<Fundings/>
-            },
+
             {
                 path:"/search-donor",
                 element:<SearchDonor/>
