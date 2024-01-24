@@ -16,7 +16,6 @@ import ProfileEdit from "../Dashboard/Pages/ProfileEdit/ProfileEdit";
 import EditRequest from "../Dashboard/EditRequest/EditRequest";
 import axios from "axios";
 import server_url from "../URL/URL";
-import DonationRequest from "../Pages/DonationRequest/DonationRequest";
 import Blog from "../Pages/Blog/Blog";
 import BlogEdit from "../Dashboard/Pages/BlogEdit/BlogEdit";
 import BlogRead from "../Dashboard/Pages/BlogRead/BlogRead";
@@ -59,10 +58,7 @@ const router = createBrowserRouter([
                 path:"/search-donor",
                 element:<SearchDonor/>
             },
-            {
-                path:"/donation_request",
-                element:<PrivateRoute><DonationRequest/></PrivateRoute>
-            }
+
 
 
         ]

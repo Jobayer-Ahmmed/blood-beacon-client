@@ -16,7 +16,7 @@ const Sidebar = () => {
   const user_type = type?.user_type
 
   return (
-    <aside  className="bg-red-300 rounded-lg p-10 text-xl text-gray-600 font-bold">
+    <aside  className="full lg:w-96 bg-red-300 rounded-lg  py-10 px-5 text-xl text-gray-600 font-bold">
         <ul>
           <li><NavLink to="/dashboard"><MdDashboard className="inline mr-2 text-black"/>Dashboard</NavLink></li>
           <li><NavLink to="/dashboard/profile"><CgProfile className="inline mr-2 text-black"/>Profile</NavLink></li>
