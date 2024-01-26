@@ -117,10 +117,10 @@ const CreateDonationRequest = () => {
               placeholder="Recipient Name"
             />
             <br />
-            <label className=" text-xl">District</label>
+            <label className=" text-xl">Recipient District</label><br />
             <select
               {...register("districts", { required: true })}
-              className="mt-2 mb-5 ml-5 px-4 h-10 rounded-sm text-xl"
+              className="mt-2 mb-5 w-full px-4 h-10 rounded-sm text-xl"
             >
               <option>Select One</option>
               {districts.map((district) => (
@@ -130,10 +130,10 @@ const CreateDonationRequest = () => {
               ))}
             </select>{" "}
             <br />
-            <label className=" text-xl">Upzila</label>
+            <label className=" text-xl">Recipient Upzila</label> <br />
             <select
               {...register("upzilas", { required: true })}
-              className="mt-2 mb-5 ml-5 px-4 h-10 rounded-sm text-xl"
+              className="mt-2 mb-5 w-full px-4 h-10 rounded-sm text-xl"
             >
               <option>Select District First</option>
               {upzilas?.map((upzila) => (
@@ -142,7 +142,7 @@ const CreateDonationRequest = () => {
                 </option>
               ))}
             </select><br />
-            <label className="text-xl">Hospital Name</label>
+            <label className="text-xl">Recipient Hospital Name</label><br />
             <input
               className="mt-2 mb-5 w-full h-10 pl-3 text-lg rounded-sm"
               {...register("hospital_name")}
@@ -150,7 +150,7 @@ const CreateDonationRequest = () => {
               placeholder="Hospital Name"
             /><br />
             
-            <label className="text-xl">Address</label>
+            <label className="text-xl">Address For Donate</label><br />
             <input
               className="mt-2 mb-5 w-full h-10 pl-3 text-lg rounded-sm"
               {...register("address")}
