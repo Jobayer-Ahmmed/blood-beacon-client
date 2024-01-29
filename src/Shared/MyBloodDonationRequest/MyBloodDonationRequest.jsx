@@ -125,7 +125,7 @@ const MyBloodDonationRequest = () => {
                   </td>
                   <td><button className="text-xl font-bold" onClick={()=>navigate(`/dashboard/edit-request/${donation._id}`)}><FaRegEdit/></button></td>
                   <td><button className="text-3xl font-bold text-red-600" onClick={()=>handleDelete(donation._id)}><TiDeleteOutline/></button></td>
-                  <td><button onClick={()=>navigate("/dashboard/donation-requset-details")}>Details</button></td>
+                  <td><button onClick={()=>navigate(`/dashboard/donation-requset-details/${donation._id}`)}>Details</button></td>
                 </tr>)
                 }
               </tbody>
