@@ -8,7 +8,10 @@ import { TiDeleteOutline } from "react-icons/ti"
 
 const MyBloodDonationRequest = () => {
     const [donations, setDonations] = useState([])
+<<<<<<< HEAD
     const [donationStatus, setDonationStatus] =useState('')
+=======
+>>>>>>> tempstage
     const navigate = useNavigate()
     const myAxios = useAxios()
     const {myUser} = useContext(MyContext) 
@@ -19,7 +22,10 @@ const MyBloodDonationRequest = () => {
   const handleDonationStatus =(e, id) => {
     console.log(id)
     console.log(e.target.value);
+<<<<<<< HEAD
     setDonationStatus(e.target.value);
+=======
+>>>>>>> tempstage
     myAxios.put(`/donation_status/${id}`, {
       donation_status:e.target.value
     })
