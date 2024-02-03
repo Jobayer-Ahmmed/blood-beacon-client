@@ -1,7 +1,6 @@
 import { useLoaderData } from "react-router-dom"
 
-
-const DonationRequestDetails = () => {
+const BloodDonationRequestDetails = () => {
     const {data} = useLoaderData()
     const {name,email,recipient_name,districts,upzilas,hospital_name,address,donation_date,donation_time,request_message,donation_status} = data
     console.log(data)
@@ -41,4 +40,4 @@ const DonationRequestDetails = () => {
   )
 }
 
-export default DonationRequestDetails
+export default BloodDonationRequestDetails

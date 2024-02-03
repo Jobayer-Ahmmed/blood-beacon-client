@@ -21,13 +21,9 @@ import BlogEdit from "../Dashboard/Pages/BlogEdit/BlogEdit";
 import BlogRead from "../Dashboard/Pages/BlogRead/BlogRead";
 import AllUsersDonationRequest from "../Dashboard/Pages/AllUsersDonationRequest/AllUsersDonationRequest";
 import MyBloodDonationRequest from "../Shared/MyBloodDonationRequest/MyBloodDonationRequest";
-import DonationRequestDetails from "../Shared/DonationRequestDetails/DonationRequestDetails";
 import ViewMyAllRequest from "../Dashboard/Pages/ViewMyAllRequest/ViewMyAllRequest";
 import SearchDonor from "../Pages/SearchDonor/SearchDonor";
-
-
-
-
+import BloodDonationRequestDetails from "../Shared/BloodDonationRequestDetails/BloodDonationRequestDetails";
 
 
 
@@ -126,8 +122,8 @@ const router = createBrowserRouter([
                 element:<PrivateRoute><MyBloodDonationRequest/></PrivateRoute>
             },
             {
-                path:"/dashboard/donation-requset-details/:id",
-                element:<PrivateRoute><DonationRequestDetails/></PrivateRoute>,
+                path:"/dashboard/blood-donation-requset-details/:id",
+                element:<PrivateRoute><BloodDonationRequestDetails/></PrivateRoute>,
                 loader: async({params})=>axios.get(`${server_url}/dashboard/donation-requset-details/${params.id}`)
             }
 
