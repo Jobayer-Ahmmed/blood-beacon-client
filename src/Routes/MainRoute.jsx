@@ -24,6 +24,7 @@ import MyBloodDonationRequest from "../Shared/MyBloodDonationRequest/MyBloodDona
 import ViewMyAllRequest from "../Dashboard/Pages/ViewMyAllRequest/ViewMyAllRequest";
 import SearchDonor from "../Pages/SearchDonor/SearchDonor";
 import BloodDonationRequestDetails from "../Shared/BloodDonationRequestDetails/BloodDonationRequestDetails";
+import Funding from "../Pages/Fundings/Funding";
 
 
 
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
                 path:"/search-donor",
                 element:<SearchDonor/>
             },
+            {
+                path:"/funding",
+                element:<Funding/>
+            }
 
 
 

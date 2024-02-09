@@ -6,9 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { MyContext } from "../../ContextApi/MyAuthProvider";
 import logo from "../../assets/logos/bloodbeacon.png"
 
-
-
-
 const Navbar = () => {
   const [theme, setTheme] = useState("light")
   const { myUser, myLogOut } = useContext(MyContext);
@@ -24,7 +21,7 @@ const Navbar = () => {
               <NavLink to="/dashboard">Dashboard</NavLink>
             </li>
             <li className="text-lg">
-              <NavLink to="/fundings">Fundings</NavLink>
+              <NavLink to="/funding">Funding</NavLink>
             </li>
             <li className="lg:hidden"><NavLink  to="/login">Login</NavLink></li>
             <li className="lg:hidden"><NavLink to="/register">Register</NavLink></li>
