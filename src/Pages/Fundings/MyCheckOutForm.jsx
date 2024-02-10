@@ -7,14 +7,29 @@ import {
   useElements,
 } from "@stripe/react-stripe-js";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const MyCheckOutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [err, setErr] = useState("");
 
+  const resetCardForm = () => {
+    if (elements) {
+      const cardNumberElement = elements.getElement(CardNumberElement);
+      const cardExpiryElement = elements.getElement(CardExpiryElement);
+      const cardCvcElement = elements.getElement(CardCvcElement);
+      if (cardNumberElement && cardExpiryElement && cardCvcElement) {
+        cardNumberElement.clear();
+        cardExpiryElement.clear();
+        cardCvcElement.clear();
+      }
+    }
+  };
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
+
 
     if (!stripe || !elements) {
       return;
@@ -39,6 +54,12 @@ const MyCheckOutForm = () => {
     } else {
       console.log("payment method : ", paymentMethod);
       setErr("");
+      resetCardForm()
+      Swal.fire({
+        title: "Thanks for the donation",
+        icon: "success"
+      });
+
     }
   };
 
