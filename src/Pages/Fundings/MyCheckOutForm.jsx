@@ -6,6 +6,7 @@ import {
   useStripe,
   useElements,
 } from "@stripe/react-stripe-js";
+import axios from "axios";
 import { useState } from "react";
 import Swal from "sweetalert2";
 
@@ -13,6 +14,7 @@ const MyCheckOutForm = () => {
   const stripe = useStripe();
   const elements = useElements();
   const [err, setErr] = useState("");
+  const [money, setMoney] = useState("$30")
 
   const resetCardForm = () => {
     if (elements) {
@@ -54,7 +56,11 @@ const MyCheckOutForm = () => {
     } else {
       console.log("payment method : ", paymentMethod);
       setErr("");
-      resetCardForm()
+      resetCardForm() 
+
+      axios.post("/funding", {money})        // have to add backend
+      .then(res=>console.log(res))
+
       Swal.fire({
         title: "Thanks for the donation",
         icon: "success"
@@ -68,7 +74,7 @@ const MyCheckOutForm = () => {
       <div className="my-20 border-2 shadow-xl rounded-lg p-10 text-xl">
         <form onSubmit={handleSubmit}>
           <div>
-            <select className="px-4 py-2 mt-2 my-5 border-2 w-full" >
+            <select onChange={(e)=>setMoney(e.target.value)} className="px-4 py-2 mt-2 my-5 border-2 w-full" >
               <option value="$30">$30</option>
               <option value="$50">$50</option>
               <option value="$100">$100</option>
