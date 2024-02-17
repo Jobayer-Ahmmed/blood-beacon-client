@@ -14,22 +14,36 @@ const SearchDonor = () => {
   const districts = useDistricts();
   const myAxios = useAxios();
   const [upzilas, setUpzilas] = useState([]);
-  const [search, setSearch] = useState([]);
   const [advance, setAdvance] = useState(0);
+  const [searchItems, setSearchItems] = useState([])
 
   const districtName = watch("districts");
   const upzilaName = watch("upzilas");
 
+  const getDistrict = districts.map(dis=>{
+    return dis.name.toLowerCase()
+  })
+
+  useEffect(()=>{
+    setSearchItems(...getDistrict)
+    
+  },[getDistrict])
+
   useEffect(() => {
+    
     myAxios.get(`/upzilas/${districtName}`).then((res) => {
       // console.log(res.data)
       setUpzilas(res.data);
+
     });
   }, [districtName]);
 
   const onSubmit = (data) => {
-    const {search} = data
-    console.log(search)
+    const {search} = data 
+    console.log(searchItems?.length)
+    const b = getDistrict.filter(dis=>dis.includes(search.toLowerCase()))
+
+    console.log(b)
 
     // myAxios
     //   .get(
