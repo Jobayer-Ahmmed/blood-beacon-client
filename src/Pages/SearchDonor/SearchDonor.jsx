@@ -4,21 +4,22 @@ import { useState } from "react";
 import useDonor2 from "../../hooks/useDonor2/useDonor2";
 
 const SearchDonor = () => {
-  const [searchItems, setSearchItems] = useState([])
-  const {
-    register,
-    handleSubmit,
-  } = useForm();
+  const [searchItems, setSearchItems] = useState([]);
+  const { register, handleSubmit } = useForm();
+  const [flag, setflag] = useState(false);
   const donor = useDonor();
-  const donor2 = useDonor2()
-// console.log(donor2)
+  const donor2 = useDonor2();
+  // console.log(donor2)
 
   const onSubmit = (data) => {
+    setflag(true);
     const { search } = data;
-    const searchResult = donor?.filter((item) => item.toLowerCase().includes(search.toLowerCase()));
-    const c = donor2?.filter(obj =>  searchResult.includes(obj.username))
-    console.log(c)
-    setSearchItems(c)
+    const searchResult = donor?.filter((item) =>
+      item.toLowerCase().includes(search.toLowerCase())
+    );
+    const c = donor2?.filter((obj) => searchResult.includes(obj.username));
+    console.log(c);
+    setSearchItems(c);
 
     // const { search } = data;
     // const searchResult = donor?.filter((item) => item.toLowerCase().includes(search.toLowerCase()));
@@ -26,9 +27,8 @@ const SearchDonor = () => {
     // console.log(c)
     // setSearchItems(c);
 
-
-    if(searchItems?.length){
-console.log(searchItems)
+    if (searchItems?.length) {
+      console.log(searchItems);
     }
   };
 
@@ -51,13 +51,33 @@ console.log(searchItems)
               />
             </div>
             <br />
-
           </form>
-<div>
-{
-        searchItems?.map((res, id)=><p key={id}>{res.district}</p>)   
-}
-</div>
+          {flag && (
+            <div className="overflow-x-auto">
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Blood Group</th>
+                    <th>Address</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {searchItems?.map((res, id) => (
+                    <tr key={id}>
+                      <td>{id+1}</td>
+                      <td>{res.username}</td>
+                      <td>{res.blood_group}</td>
+                      <td>
+                        {res.district}, {res.upzila}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
         </div>
       </div>
     </div>
