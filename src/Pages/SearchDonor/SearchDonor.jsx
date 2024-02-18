@@ -42,12 +42,12 @@ const SearchDonor = () => {
                 className="  w-full h-10 pl-3 text-lg rounded-sm"
                 {...register("search")}
                 type="text"
-                placeholder="Keywords"
+                placeholder="Find donors"
               />
               <input
                 className={`cursor-pointer mt-3 md:mt-0 h-10 bg-red-600 px-10 text-white text-lg rounded-sm md:absolute md:top-0 md:right-0 active:font-bold`}
                 type="submit"
-                value="Search now"
+                value="Search"
               />
             </div>
             <br />
@@ -70,7 +70,7 @@ const SearchDonor = () => {
                       <td>{res.username}</td>
                       <td>{res.blood_group}</td>
                       <td>
-                        {res.district}, {res.upzila}
+                      {res.upzila}, {res.district}
                       </td>
                     </tr>
                   ))}
