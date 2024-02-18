@@ -3,10 +3,14 @@ import { RiRefund2Fill } from "react-icons/ri";
 import { MdBloodtype } from "react-icons/md";
 import useUsers from "../../hooks/useUsers/useUsers";
 import useGetDonation from "../../hooks/useGetDonation/useGetDonation";
+import useFunding from "../../hooks/useFunding/useFunding";
 
 const AdminFeatureCard = () => {
   const users = useUsers();
   const donationRequest = useGetDonation();
+  const funding = useFunding()
+  
+  const TotalMoney = funding.reduce((total, single)=> total+Number(single.money.replace("$","")), 0)
 
   return (
     <div>
@@ -35,7 +39,7 @@ const AdminFeatureCard = () => {
           </div>
           <div>
             <h3 className="text-xl  font-medium text-gray-600">
-              Total Fund :{" "}
+              Total Fund : ${TotalMoney}
             </h3>
           </div>
         </div>
